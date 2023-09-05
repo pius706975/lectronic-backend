@@ -1,0 +1,38 @@
+.nav-app {
+    background-color: #f2f4fb;
+    width: 100%;
+}
+
+.nav-brand {
+    margin-left: 10px;
+    transition: opacity 0.2s;
+}
+.nav-brand:hover {
+    opacity: 0.9;
+}
+
+.nav-btn {
+    margin-right: 10px;
+}
+
+Nav {
+    font-weight: bold;
+}
+
+.nav-link {
+    margin-right: 100px;
+}
+
+.register-btn {
+    margin-right: 10px;
+    width: 130px;
+    background-color: #0300ad;
+    transition: background-color 0.2s, color 0.2s;
+    border: 1px solid #0300ad;
+    border-radius: 10px;
+}
+
+.register-btn:hover {
+    color: #0300ad;
+    background-color: white;
+}
