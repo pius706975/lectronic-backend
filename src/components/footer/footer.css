@@ -1,0 +1,27 @@
+.footer-app {
+    background-color: #ebf2f4;
+}
+
+.product p a {
+    text-decoration: none;
+    color: rgb(66, 66, 66);
+    transition: color 0.2s;
+}
+
+.product p a:hover {
+    color: black;
+}
+
+.help p a {
+    text-decoration: none;
+    color: rgb(66, 66, 66);
+    transition: color 0.2s;
+}
+
+.help p a:hover {
+    color: black;
+}
+
+.copyright {
+    background: linear-gradient(#ebf2f4, #cfe7ff);
+}
