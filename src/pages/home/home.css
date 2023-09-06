@@ -1,3 +1,5 @@
+/* Section 1 */
+
 .home-banner {
     background-color: #f2f4fb;
 }
@@ -25,7 +27,6 @@
   }
 
   .home-banner-left-side .banner-paragraph {
-    font-family: Lato;
     font-size: 17px;
     text-align: justify;
     color: rgb(104, 104, 104);
@@ -69,4 +70,46 @@
   .box .row .home-img {
     width: 900px;
     margin: auto;
+  }
+
+  /* Section 2 */
+  .steps {
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .steps:hover {
+    background-color: #0020b2;
+    color: white;
+  }
+
+  .steps .icon {
+    transition: color 0.2s;
+  }
+  .steps .icon:hover {
+    color: black;
+  }
+
+  .product-btn {
+    color: grey;
+    background-color: white;
+    transition: backgroud-color 0.2s, color 0.2s;
+  }
+  .product-btn:hover {
+    background-color: #0020b2;
+    color: white;
+  }
+
+  .input-search {
+    border: 1px solid #0020b2;
+    border-right: none;
+  }
+
+  .search-btn-home {
+    background-color: white;
+    color: black;
+    border: 1px solid #0020b2;
+    border-left: none;
+    transition: background-color 0.2s;
+  }
+  .search-btn-home:hover {
+    background-color: #0020b2;
   }
