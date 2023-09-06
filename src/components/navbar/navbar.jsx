@@ -33,7 +33,7 @@ function NavbarCom() {
 
                     <Nav>
                         <div>
-                            <Button className="nav-btn register-btn" >Sign up</Button>
+                            <Button className="nav-btn register-btn" href="/signup">Sign up</Button>
                         </div>
                     </Nav>
 

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import './sign.up.css'
@@ -6,6 +6,11 @@ import image from "./image9.png"
 import vector from "./Vector.png"
 
 function Register(params) {
+
+    useEffect(()=>{
+        document.title = 'Sign Up'
+    }, [])
+
     return (
         <div className="register-app">
             <div>

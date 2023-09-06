@@ -2,8 +2,8 @@ import React, { useEffect } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import './home.css'
-import navbar from '../../components/navbar/navbar'
-import footer from '../../components/footer/footer'
+import NavbarCom from "../../components/navbar/navbar"
+import FooterCom from "../../components/footer/footer"
 
 function Home() {
     
@@ -13,8 +13,9 @@ function Home() {
 
     return (
         <div className="home-app">
-            <navbar/>
-            <footer/>
+            <NavbarCom/>
+            
+            <FooterCom/>
         </div>
     )
 }
