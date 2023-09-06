@@ -1,0 +1,72 @@
+.home-banner {
+    background-color: #f2f4fb;
+}
+
+.home-banner-container {
+    max-width: 1700px;
+    width: 100%;
+    margin: 50px auto;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  
+  .home-banner-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 30px 0;
+  }
+  
+  .home-banner-content .home-banner-left-side {
+    max-width: 400px;
+    min-width: 270px;
+    overflow: hidden;
+    margin: 25px;
+  }
+
+  .home-banner-left-side .banner-paragraph {
+    font-family: Lato;
+    font-size: 17px;
+    text-align: justify;
+    color: rgb(104, 104, 104);
+  }
+
+  .banner-shop-btn {
+    background-color: #0020b2;
+    border: 1px solid #0020b2;
+    border-radius: 10px;
+    transition: background-color 0.2s, color 0.2s
+  }
+  .banner-shop-btn:hover {
+    background-color: white;
+    color: #0020b2;
+  }
+
+  .banner-offer-btn {
+    border-radius: 10px;
+    color: #0020b2;
+    background-color: white;
+    border: 1px solid #0020b2;
+    transition: background-color 0.2s, color 0.2s
+  }
+  .banner-offer-btn:hover {
+    background-color: #0020b2;
+    color: white;
+  }
+
+  .home-banner-content .box {
+    max-width: 600px;
+    min-width: 290px;
+    border-radius: 10px;
+  }
+  
+  .box .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+
+  .box .row .home-img {
+    width: 900px;
+    margin: auto;
+  }
