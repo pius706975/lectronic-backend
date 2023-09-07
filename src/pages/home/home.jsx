@@ -99,30 +99,32 @@ function Home() {
 
                 <div>
                     <div className="d-flex">
-                        <div style={{maxWidth: "1700px", width: "100%", margin: "50px auto", padding: "10px 0"}}>
+                        <div style={{maxWidth: "1700px", width: "100%", margin: "auto"}}>
                             
                             <div style={{display: "flex", justifyContent: "space-around", flexWrap: "wrap", padding: "30px 0"}}>
-                                <div style={{ margin: "auto", borderRadius: "20px"}}>
-                                    <Button className="product-btn" style={{width: "160px", border: "none"}}>Headphones</Button>
+                                <div className="d-flex">
+                                    <div style={{ margin: "auto", borderRadius: "20px"}}>
+                                        <Button className="product-btn" style={{width: "160px", border: "none"}}>Headphones</Button>
+                                    </div>
+
+                                    <div style={{ margin: "auto", borderRadius: "20px"}}>
+                                        <Button className="product-btn" style={{width: "160px", border: "none"}}>Audio Interfaces</Button>
+                                    </div>
+
+                                    <div style={{ margin: "auto", borderRadius: "20px"}}>
+                                        <Button className="product-btn" style={{width: "160px", border: "none"}}>Audio Mixers</Button>
+                                    </div>
+
+                                    <div style={{ margin: "auto", borderRadius: "20px"}}>
+                                        <Button className="product-btn" style={{width: "160px", border: "none"}}>Speakers</Button>
+                                    </div>
+
+                                    <div style={{ margin: "auto", borderRadius: "20px"}}>
+                                        <Button className="product-btn" style={{width: "160px", border: "none"}}>Audio Equipments</Button>
+                                    </div>
                                 </div>
 
-                                <div style={{ margin: "auto", borderRadius: "20px"}}>
-                                    <Button className="product-btn" style={{width: "160px", border: "none"}}>Audio Interfaces</Button>
-                                </div>
-
-                                <div style={{ margin: "auto", borderRadius: "20px"}}>
-                                    <Button className="product-btn" style={{width: "160px", border: "none"}}>Audio Mixers</Button>
-                                </div>
-
-                                <div style={{ margin: "auto", borderRadius: "20px"}}>
-                                    <Button className="product-btn" style={{width: "160px", border: "none"}}>Speakers</Button>
-                                </div>
-
-                                <div style={{ margin: "auto", borderRadius: "20px"}}>
-                                    <Button className="product-btn" style={{width: "160px", border: "none"}}>Audio Equipments</Button>
-                                </div>
-
-                                <div style={{ margin: "auto", borderRadius: "20px"}}>
+                                <div style={{ margin: "", borderRadius: "20px"}}>
                                     <InputGroup>
                                         <FormControl 
                                             type="text"
