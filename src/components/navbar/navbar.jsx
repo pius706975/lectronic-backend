@@ -11,7 +11,7 @@ function NavbarCom() {
     return (
         <div className="nav-app">
 
-            <Navbar expand="lg" className="navbar" >
+            <Navbar expand="lg" className="navbar" style={{maxWidth: '1350px', margin: 'auto'}}>
                 
                 <Navbar.Brand className="nav-brand" as={Link} to="/" >
                     <img src={BrandLogo} alt="Brand" width="150" height="auto" />
@@ -33,6 +33,7 @@ function NavbarCom() {
 
                     <Nav>
                         <div>
+                            <Button className="nav-btn login-btn" href="/login">Sign in</Button>
                             <Button className="nav-btn register-btn" href="/signup">Sign up</Button>
                         </div>
                     </Nav>
