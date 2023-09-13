@@ -1,6 +1,11 @@
 .nav-app {
     background-color: #f2f4fb;
     width: 100%;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 .nav-brand {
@@ -13,6 +18,7 @@
 
 .nav-btn {
     margin-right: 10px;
+    font-weight: 800;
 }
 
 Nav {
@@ -23,7 +29,7 @@ Nav {
     margin-right: 100px;
 }
 
-.register-btn {
+.login-btn {
     margin-right: 10px;
     width: 130px;
     background-color: #0300ad;
@@ -32,7 +38,22 @@ Nav {
     border-radius: 10px;
 }
 
-.register-btn:hover {
+.login-btn:hover {
     color: #0300ad;
     background-color: white;
+}
+
+.register-btn {
+    margin-right: 10px;
+    width: 130px;
+    color: #0300ad;
+    background-color: white;
+    transition: background-color 0.2s, color 0.2s;
+    border: 1px solid #0300ad;
+    border-radius: 10px;
+}
+
+.register-btn:hover {
+    color: white;
+    background-color: #0300ad;
 }
