@@ -24,7 +24,7 @@ function Home() {
                 <div className="home-banner-container">
                     <div className="home-banner-content">
                         <div className="home-banner-left-side">
-                            <h1 className="banner-title" style={{fontSize: "50px"}}>Take Your Time And <span style={{color: "#0020b2"}}>Shop</span> Anywhere</h1>
+                            <h1 className="banner-title" style={{fontSize: "50px", fontWeight: "bolder"}}>Take Your Time And <span style={{color: "#0020b2"}}>Shop</span> Anywhere</h1>
 
                             <p className="banner-paragraph">Find stuff what you want easily</p>
 
@@ -94,7 +94,7 @@ function Home() {
                 <p></p>
 
                 <div style={{width: "300px", margin: "auto", borderRadius: "20px"}}>
-                    <h3 style={{fontWeight: "bold", textAlign: "center", padding: "10px"}}>The Best Product By Lectronic</h3>
+                    <h3 style={{fontWeight: "bolder", textAlign: "center", padding: "10px"}}>The Best Product By Lectronic</h3>
                 </div>
 
                 <div>
