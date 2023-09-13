@@ -88,6 +88,8 @@
     color: black;
   }
 
+
+  /* Section 3 */
   .product-btn {
     color: grey;
     background-color: white;
@@ -112,4 +114,14 @@
   }
   .search-btn-home:hover {
     background-color: #0020b2;
+  }
+
+  .view-all-btn {
+    background-color: #0020b2;
+    color: white;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .view-all-btn:hover {
+    background-color: white;
+    color: #0020b2;
   }

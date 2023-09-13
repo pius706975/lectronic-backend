@@ -20,6 +20,7 @@ function Home() {
         <div className="home-app">
             <NavbarCom/>
 
+            {/* Section 1 */}
             <div className="home-banner d-flex">
                 <div className="home-banner-container">
                     <div className="home-banner-content">
@@ -44,6 +45,7 @@ function Home() {
                 </div>
             </div>
 
+            {/* Section 2 */}
             <div className="home-second-container" style={{marginTop: "120px"}}>
                 <div style={{backgroundColor: "#f2f4fb", width: "150px", margin: "auto", borderRadius: "20px"}}>
                     <p style={{color: "#0020b2", textAlign: "center", padding: "10px"}}>How it works</p>
@@ -85,8 +87,9 @@ function Home() {
                     </div>
                 </div>
             </div>
-
-            <div className="home-third-container" style={{marginTop: "30px"}}>
+            
+            {/* Section 3 */}
+            <div className="home-third-container" style={{marginTop: "30px", marginBottom: '100px'}}>
                 <div style={{backgroundColor: "#f2f4fb", width: "150px", margin: "auto", borderRadius: "20px"}}>
                     <p style={{color: "#0020b2", textAlign: "center", padding: "10px"}}>Our Products</p>
                 </div>
@@ -102,7 +105,7 @@ function Home() {
                         <div style={{maxWidth: "1700px", width: "100%", margin: "auto"}}>
                             
                             <div style={{display: "flex", justifyContent: "space-around", flexWrap: "wrap", padding: "30px 0"}}>
-                                <div className="d-flex">
+                                <div className="d-flex" style={{display: "flex", flexWrap: "wrap"}} >
                                     <div style={{ margin: "auto", borderRadius: "20px"}}>
                                         <Button className="product-btn" style={{width: "160px", border: "none"}}>Headphones</Button>
                                     </div>
@@ -137,6 +140,10 @@ function Home() {
                                         <Button type="submit" className="search-btn-home" ><BsSearch/></Button>
                                     </InputGroup>
                                 </div>
+                            </div>
+
+                            <div className="text-center">
+                                <Button className="view-all-btn" style={{border: '1px solid 0020b2', borderRadius: '10px', fontWeight: '800'}}>View All</Button>
                             </div>
                         </div>
                     </div>
