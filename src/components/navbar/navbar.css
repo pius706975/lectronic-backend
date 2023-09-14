@@ -27,6 +27,11 @@ Nav {
 
 .nav-link {
     margin-right: 100px;
+    margin-left: 10px;
+}
+
+.nav-about {
+    margin-right: 90px;
 }
 
 .login-btn {
@@ -56,4 +61,31 @@ Nav {
 .register-btn:hover {
     color: white;
     background-color: #0300ad;
+}
+
+.toggle-menu::after {
+    display: none;
+}
+
+.profile-menu {
+    width: max-content;
+    border: 1px solid white;
+}
+
+.dd-item {
+    transition: background-color 0.2s, color 0.2s;
+}
+.dd-item:hover {
+    background-color: #0300ad;
+    color: white;
+    border-radius: 10px;
+}
+
+.dd-logout {
+    transition: background-color 0.2s, color 0.2s;
+}
+.dd-logout:hover {
+    background-color: red;
+    color: white;
+    border-radius: 10px;
 }
