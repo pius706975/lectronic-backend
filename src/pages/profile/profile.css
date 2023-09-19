@@ -1,7 +1,6 @@
 .user-profile {
     max-width: 1200px;
     width: 100%;
-    box-shadow: 0 0 5px #00000015;
     margin: auto;
     border-radius: 10px;
     padding: 10px;
@@ -127,4 +126,9 @@
     border: #0300ad 1px solid;
     border-radius: 10px;
     padding: 10px;
+    transition: background-color 0.2s, color 0.2s;
+}
+.change-password-btn:hover {
+    background-color: white;
+    color: #0300ad;
 }
