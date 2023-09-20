@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import './profile.css'
-import { Button, Form, Image, Modal} from "react-bootstrap"
+import {Button, Form, Image, Modal} from "react-bootstrap"
 import backLogo from '../../images/back.png'
 import Api from '../../helpers/api'
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import {BsGenderMale, BsGenderFemale} from 'react-icons/bs'
+import CustomAlert from "../../components/alerts/custom-alert"
 
 function UserProfile() {
 
@@ -16,6 +17,11 @@ function UserProfile() {
         setErrorMessage(null)
     }
 
+    const [showAlert, setShowAlert] = useState(false)
+    const [alertMsg, setAlertMsg] = useState('')
+    const progressRef = useRef(null)
+    const [uploadProgress, setUploadProgress] = useState(0)
+
     const api = Api()
     const [user, setUser] = useState('')
     const {isAuth} = useSelector((state)=>state.users)
@@ -23,7 +29,6 @@ function UserProfile() {
 
     const [bg1, setBg1] = useState(true)
     const [bg2, setBg2] = useState(false)
-    const [bday, setBday] = useState(false)
 
     const [image, setImage] = useState('')
     const [name, setName] = useState('')
@@ -81,7 +86,7 @@ function UserProfile() {
             setData5(formattedDate)
             setData6(data.gender)
             
-            console.log(data)
+            // console.log(data)
         }).catch((err)=>{
             console.log(err)
         })
@@ -100,7 +105,8 @@ function UserProfile() {
                 gender: gender,
             }
         }).then((res)=>{
-            alert('Profile updated')
+            setAlertMsg('Profile updated successfully')
+            setShowAlert(true)
         }).catch((err)=>{
             console.log(err)
         })
@@ -114,15 +120,16 @@ function UserProfile() {
                 password: password
             }
         }).then((res)=>{
-            alert('Password updated')
-        }).catch((err)=>{
-            if (err.response && err.response.data) {
-                const errMsg = err.response.data.result[0].message
-                setErrorMessage(errorMessage)
+            setAlertMsg('Password updated successfully')
+            setShowAlert(true)
+        }).catch((error)=>{
+            if (error.response && error.response.data) {
+                const errorMsg = error.response.data.result[0].message
+                setErrorMessage(errorMsg)
                 setErrorTimer(setTimeout(clearErrorMessage, 5000))
-                console.log(errMsg)
+                // console.log(errorMsg)
             } else {
-                console.log('An error occurred: ', err.message);
+                console.log('An error occurred: ', error.message);
             }
         })
     }
@@ -136,8 +143,9 @@ function UserProfile() {
                 image: image
             }
         }).then((res)=>{
-            alert('Profile picture updated')
-            window.location.reload(navigate('/profile'))
+            setUploadProgress(0)
+            setAlertMsg('Profile image changed successfully')
+            setShowAlert(true)
         }).catch((err)=>{
             console.log(err)
         })
@@ -149,11 +157,33 @@ function UserProfile() {
     }, [])
 
     useEffect(()=>{
+        if (name === '' && data2) {
+            setName(data2)
+        }
+    }, [data2, name])
+
+    useEffect(()=>{
+        if (birthday === '' && data5) {
+            setBirthday(data5)
+        }
+    })
+
+    useEffect(()=>{
         handleGender()
     }, [data6])
 
+    useEffect(()=>{
+        if (showAlert) {
+            const timer = setTimeout(() => {
+                window.location.reload(navigate('/profile'))
+            }, 1000);
+
+            return ()=>clearTimeout(timer)
+        }
+    }, [showAlert])
+
     const handleHistory = ()=>{
-        navigate(-1)
+        navigate('/')
     }
    
     // password modal
@@ -163,7 +193,7 @@ function UserProfile() {
     }
     const savePassword = ()=>{
         updatePassword()
-        setPasswordModal(true)
+        setPasswordModal(false)
     }
     const passwordCancel = ()=>{
         setPasswordModal(false)
@@ -193,10 +223,12 @@ function UserProfile() {
                     </div>
                     <div className="profile-data">
                         <div onClick={showImgModal} className="profile-pic">
-                            <Image className="img" src={data1} alt="..."/>
+                            <div>
+                                <Image className="img" src={data1} alt="..."/>
+                            </div>
                         </div>
 
-                        <Modal show={imgModal} onHide={cancelChangeImg} >
+                        <Modal show={imgModal} onHide={cancelChangeImg} aria-labelledby="contained-modal-title-vcenter" centered>
                             <Modal.Header closeButton>
                             
                             <Modal.Title style={{fontWeight: 'bolder'}}>Change picture</Modal.Title>
@@ -211,12 +243,13 @@ function UserProfile() {
                                     Cancel
                                 </Button>
                                 <Button className="save-btn" onClick={saveImg}>
-                                    Save
+                                    Upload
                                 </Button>
                             </Modal.Footer>
                         </Modal>
 
                         <div className="box">
+                            <CustomAlert show={showAlert} setShow={setShowAlert} message={alertMsg}/>
                             <div className="row">
                                 <h1 style={{fontWeight: 'bolder', textAlign: 'justify'}}>Edit your personal bio</h1>
                                 <p style={{fontSize: '15px', textAlign: 'justify'}}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
@@ -226,7 +259,7 @@ function UserProfile() {
                                 <Form className="data-form">
                                     <Form.Group className="mb-3">
                                         <Form.Label style={{fontWeight: 'bolder'}}>Name</Form.Label>
-                                        <Form.Control className="forms" type="text" placeholder="John Doe" defaultValue={data2} onChange={(e)=>setName(e.target.value)}/>
+                                        <Form.Control className="forms" type="text" placeholder="John Doe" defaultValue={data2} onChange={(e) => setName(e.target.value)}/>
                                     </Form.Group>
 
                                     <Form.Group className="mb-3">
@@ -241,7 +274,7 @@ function UserProfile() {
 
                                     <Form.Group className="mb-3">
                                         <Form.Label style={{fontWeight: 'bolder'}}>Date of Birth</Form.Label>
-                                        <Form.Control className="forms" type="date" value={data5}  />
+                                        <Form.Control className="forms" type="date" defaultValue={data5} onChange={(e)=>setBirthday(e.target.value)}/>
                                     </Form.Group>
 
                                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -275,6 +308,29 @@ function UserProfile() {
                                                 <Button onClick={showPasswordModal} style={{borderRadius: '20px'}} className="change-password-btn">Change</Button>
                                             </div>
                                         </Form.Group>
+
+                                        <Modal show={passwordModal} onHide={passwordCancel} aria-labelledby="contained-modal-title-vcenter" centered>
+                                            <Modal.Header closeButton>
+                                                <Modal.Title>Change Password</Modal.Title>
+                                            </Modal.Header>
+                                            
+                                            <Modal.Body>
+                                                <Form.Group className="mb-3">
+                                                    <Form.Label style={{fontWeight: 'bolder'}}>New Password</Form.Label>
+                                                    <Form.Control className="forms" type="password" placeholder="Your new password" onChange={(e)=>setPassword(e.target.value)}/>
+                                                    
+                                                    <div className="error-message">
+                                                        {errorMessage && <p style={{color: 'red', fontSize: '15px'}} className="error-message">{errorMessage}</p>}
+                                                    </div>
+                                                </Form.Group>
+                                            </Modal.Body>
+                                            
+                                            <Modal.Footer>
+                                                <Button className="cancel-btn" onClick={passwordCancel}>Cancel</Button>
+
+                                                <Button className="save-btn" onClick={savePassword}>Save</Button>
+                                            </Modal.Footer>
+                                        </Modal>
                                     </div>
                                     
                                     <Form.Group className="mb-3">
