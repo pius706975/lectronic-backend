@@ -111,7 +111,7 @@ function Login() {
                         <a className="forgot-password" href="#">Forgot Password?</a>
                         <button onClick={loginHandler} type="submit" className="log-button-REG">Login</button>
                         <div className="not-register">
-                            <p>Not register yet? <Link className="create-acc" to={"/signup"}>Create an Account</Link></p>
+                            <p>Not registered yet? <Link className="create-acc" to={"/signup"}>Create an Account</Link></p>
                         </div>
                     </form>
                 </div>         
