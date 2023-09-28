@@ -93,49 +93,13 @@ Nav {
 
 /* Navbar 2 */
 .nav-app2 {
-    background: linear-gradient(to bottom, #f2f4fb 0%, #f2f4fb 75%, #ffffff00 75%, #ffffff00 100%);
+    background-color: #f2f4fb;
     width: 100%;
-    z-index: 1000;
+    padding: 0;
+    /* z-index: 1000;
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
+    right: 0; */
 }
 
-.product-search {
-    border: 1px solid white;
-    border-right: none;
-    border-radius: 15px;
-    box-shadow: 0 0 5px #0000003a;
-    font-size: 15px;
-}
-
-.search-btn-product {
-    padding: 15px;
-    font-size: 20px;
-    background-color: #0020b2;
-    color: white;
-    border: 1px solid #0020b2;
-    border-left: none;
-    border-radius: 15px;
-    box-shadow: 0 0 5px #0000003a;
-    transition: background-color 0.2s;
-}
-.search-btn-product:hover {
-    background-color: #020085;
-}
-
-.additional-product-btn {
-    border-radius: 15px;
-    background-color: white;
-    border: 1px solid white;
-    box-shadow: 0 0 5px #0000003a;
-    color: #0300ad;
-    font-size: 20px;
-    padding: 0 20px 0 20px;
-    transition: background-color 0.2s, color 0.2s;
-}
-.additional-product-btn:hover {
-    background-color: #0300ad;
-    color: white;
-}

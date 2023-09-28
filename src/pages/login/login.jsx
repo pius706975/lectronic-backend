@@ -62,7 +62,7 @@ function Login() {
                 }
             })
         } catch (error) {
-            console.log('An error occurred: ', error.message);
+            console.log('An error occurred: ', error.message)
         }
     }
 

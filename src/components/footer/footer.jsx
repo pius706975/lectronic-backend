@@ -57,7 +57,7 @@ function FooterCom() {
             </section>
 
             <div className='text-center p-3 mt-3 copyright'>
-                <h5>Pius Restiantoro &copy; 2023 - {currentYear} </h5>
+                <h5><a href="https://pius-restiantoro.netlify.app" style={{textDecoration: 'none', color: 'rgb(66, 66, 66)'}} target="blank">Pius Restiantoro</a> &copy; 2023 - {currentYear} </h5>
             </div>
         </MDBFooter>
     )

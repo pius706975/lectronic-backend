@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import './navbar.css'
-import { Button, Dropdown, FormControl, Image, InputGroup, Nav, Navbar } from "react-bootstrap"
+import { Button, Dropdown, Image, Nav, Navbar } from "react-bootstrap"
 import Api from "../../helpers/api"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import backLogo from '../../images/back.png'
 import toggleImage from '../../images/Logo.png'
 import { logout } from "../../store/reducer/user"
-import { BsSearch, BsCart } from "react-icons/bs"
-import {BiFilterAlt} from 'react-icons/bi'
 
 function NavbarCom2() {
 
@@ -43,12 +41,10 @@ function NavbarCom2() {
         }
     }, [isAuth])
 
-    const toCartPage = ()=>{
-        navigate('/cart')
-    }
+
 
     return (
-        <div className="nav-app2">
+        <div className="nav-app2"> 
             <Navbar expand="lg" className="navbar" style={{maxWidth: '1350px', margin: 'auto'}}>
                 
                 <Navbar.Brand as={Link} to="/" >
@@ -95,34 +91,6 @@ function NavbarCom2() {
                     </Nav>  
 
             </Navbar>
-
-            <div className="search" style={{maxWidth: '1100px', margin: '20px auto'}}>
-                <div style={{borderRadius: "20px", maxWidth: '1100px', margin: 'auto', display: 'flex'}}>
-                    <InputGroup>
-                        <FormControl 
-                            type="text"
-                            className="product-search" 
-                            placeholder="Tap To Search For Something" 
-                            aria-label="Type to search" 
-                            aria-describedby="basic-addon2" 
-                        />
-
-                        <Button type="submit" className="search-btn-product" ><BsSearch/></Button>
-                    </InputGroup>
-
-                    <Button style={{visibility: 'hidden'}}></Button>
-
-                    <Button onClick={toCartPage} className="additional-product-btn">
-                        <BsCart/>
-                    </Button>
-
-                    <Button style={{visibility: 'hidden'}}></Button>
-
-                    <Button className="additional-product-btn">
-                        <BiFilterAlt/>
-                    </Button>
-                </div>
-            </div>
         </div>
     )
 }
