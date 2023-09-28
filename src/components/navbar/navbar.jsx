@@ -90,7 +90,6 @@ function NavbarCom() {
                         ):(
                             <div>
                                 <Button className="nav-btn login-btn" href="/login">Sign in</Button>
-                                <Button className="nav-btn register-btn" href="/signup">Sign up</Button>
                             </div>
                         )}
                     </Nav>  
