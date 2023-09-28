@@ -4,6 +4,7 @@ import Home from "./pages/home/home"
 import Login from './pages/login/login'
 import Register from "./pages/register/sign.up"
 import UserProfile from "./pages/profile/profile"
+import Product from "./pages/product/product"
 
 function TheRouter() {
     return (
@@ -15,6 +16,7 @@ function TheRouter() {
                 <Route path="/login" element={<Login/>} />
                 <Route path="/signup" element={<Register/>} />
                 <Route path="/profile" element={<UserProfile/>} />
+                <Route path="/product" element={<Product/>} />
 
             </Routes>
 

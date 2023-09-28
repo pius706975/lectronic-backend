@@ -89,3 +89,17 @@ Nav {
     color: white;
     border-radius: 10px;
 }
+
+
+/* Navbar 2 */
+.nav-app2 {
+    background-color: #f2f4fb;
+    width: 100%;
+    padding: 0;
+    /* z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0; */
+}
+

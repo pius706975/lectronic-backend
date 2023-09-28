@@ -16,30 +16,32 @@ function CardDetail(props) {
     const addToCart = ()=>{
         navigate(`/cart/${props.id}`)
     }
+
+    // console.log(props)
     
     return (
         <div className="detail">
             
-            <Card className="detail-card" style={{ width: '336px', height: '520px', borderRadius: '20px', padding: '30px'}}>
+            <Card className="detail-card" style={{ width: '250px', height: '340px', borderRadius: '20px', padding: '10px', marginRight: '10px', marginBottom: '10px'}}>
 
-                <Card.Title style={{fontWeight: '400', fontSize: '18px'}}>{props.name}</Card.Title>
+                <Card.Title style={{fontWeight: '400', fontSize: '13px', overflow: 'hidden'}}>{props.name}</Card.Title>
 
                 <div className="row">
-                    <div className="col-6" style={{fontSize: '26px', fontWeight: '800', marginBottom: '5px', color: '#0300ad'}}>
+                    <div className="col-6" style={{fontSize: '15px', fontWeight: 'bold', color: '#0300ad'}}>
                         {currency(props.price)}
                     </div>
 
-                    <div className="col-6" style={{fontSize: '20px', color: '#0300ad', textAlign: 'right'}}>
+                    <div className="col-6" style={{fontSize: '15px', color: '#0300ad', textAlign: 'right'}}>
                         <BsStar/> {props.rate}
                     </div>
                 </div>
 
-                <Card.Img style={{margin: 'auto', width: '200px', height: '300px'}} variant="top" src={props.image} />
+                <Card.Img style={{margin: 'auto', width: '50%', borderRadius: '10px'}} variant="top" src={props.image} />
 
-                <div className="row">
-                    <Button className="detail-btn" style={{color: 'white', fontSize: '18px', fontWeight: '600', width: '222px', backgroundColor: '#0300ad', border: '1px solid #0300ad', borderRadius: '10px'}} onClick={detail}>Detail</Button>
+                <div className="row" style={{padding: '0px 10px 0 10px'}}>
+                    <Button className="detail-btn" style={{color: 'white', fontSize: '15px', fontWeight: '600', width: '122px', backgroundColor: '#0300ad', border: '1px solid #0300ad', borderRadius: '10px'}} onClick={detail}>Detail</Button>
 
-                    <Button className="cart-btn" style={{width: '50px', borderRadius: '10px', border: '1px solid #0300ad', backgroundColor: 'white', color: '#0300ad', marginLeft: 'auto'}} onClick={addToCart}><BsCart/></Button>
+                    <Button className="cart-btn" style={{width: '40px', borderRadius: '10px', border: '1px solid #0300ad', backgroundColor: 'white', color: '#0300ad', marginLeft: 'auto'}} onClick={addToCart}><BsCart/></Button>
                 </div>
 
             </Card>
