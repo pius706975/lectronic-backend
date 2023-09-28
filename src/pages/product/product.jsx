@@ -16,8 +16,6 @@ function Product() {
     const navigate = useNavigate()
     const api = Api()
 
-    const [errorMessage, setErrorMessage] = useState('')
-
     const [categories, setCategories] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
     const [selectedCategory, setSelectedCategory] = useState(null)
@@ -70,34 +68,19 @@ function Product() {
         }
     }
 
-    const searchProduct = async (e)=>{
-        // e.preventDefault()
-
-        try {
-            api.requests({
-                method: 'GET',
-                url: `/product/name?name=${keyword}&page=${page}&limit=${limit}`
-            }).then((res)=>{
-                const data = res.data.result
-                setSearchResults(data[0].result)
-                setPages(data[0].totalPages)
-                setRows(data[0].totalRows)
-                // console.log(data)
-            }).catch((err)=>{
-                if (err.response && err.response.data) {
-                    const errorMessage = err.response.data.result[0].message
-                    setErrorMessage(errorMessage)
-                    alert(errorMessage)
-                } else {
-                    setErrorMessage('')
-                    console.log('An error occurred: ', err.message)
-                }
-            })
-        } catch (error) {
-            console.log('An error occurred: ', error.message)
-        }
-        
-
+    const searchProduct = async ()=>{
+        api.requests({
+            method: 'GET',
+            url: `/product/name?name=${keyword}&page=${page}&limit=${limit}`
+        }).then((res)=>{
+            const data = res.data.result
+            setSearchResults(data[0].result)
+            setPages(data[0].totalPages)
+            setRows(data[0].totalRows)
+            // console.log(data)
+        }).catch((err)=>{
+            console.log(err)
+        })
     }
 
     useEffect(()=>{
