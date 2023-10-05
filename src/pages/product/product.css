@@ -177,6 +177,21 @@
 
 }
 
+.review-submit-btn {
+    background-color: #0300ad;
+    color: white;
+    border: #0300ad 1px solid;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 15px;
+    margin: auto;
+    transition: background-color 0.2s, color 0.2s;
+}
+.review-submit-btn:hover {
+    background-color: white;
+    color: #0300ad;
+}
+
 @media screen and (max-width: 390px) {
     .product-category-btn {
         visibility: hidden;

@@ -6,6 +6,7 @@ import NavbarCom3 from "../../components/navbar/navbar3"
 import {BsCart, BsPencil, BsStar} from 'react-icons/bs'
 import currency from '../../helpers/format.currency'
 import { Button, Col, Nav, Row, Tab } from "react-bootstrap"
+import Rate from "../../components/rate/rate"
 
 function ProductDetail() {
     
@@ -128,10 +129,10 @@ function ProductDetail() {
                                     <>
                                         <Tab.Content>
                                             <Tab.Pane eventKey="first">
-                                                <p style={{fontSize: '17px', textAlign: 'justify'}}>{product.description}</p>
+                                                <p style={{fontSize: '17px', textAlign: 'justify', backgroundColor: 'white', borderRadius: '10px'}}>{product.description}</p>
                                             </Tab.Pane>
                                             <Tab.Pane eventKey="second">
-                                                <div className="review-tab">
+                                                <div className="review-tab" style={{backgroundColor: 'white'}}>
                                                     <div className="row" style={{padding: '0px 10px 0 10px', marginBottom: '10px'}}>
                                 
                                                         <div className="col-6" style={{margin: 'auto'}}>
@@ -139,8 +140,16 @@ function ProductDetail() {
                                                         </div>
 
                                                         <div className="col-6" style={{fontSize: '20px', textAlign: 'right'}}>
-                                                            <p>rating</p>
+                                                            <p><Rate/></p>
                                                         </div>
+                                                    </div>
+
+                                                    <div >
+                                                        <textarea rows={4} style={{width: '100%', padding: '10px', borderRadius: '10px', border: 'none', boxShadow: '0 0 5px #00000030'}}/>
+                                                    </div>
+
+                                                    <div style={{textAlign: "right"}}>
+                                                        <Button className="review-submit-btn">Submit</Button>
                                                     </div>
                                                 </div>
                                             </Tab.Pane>
