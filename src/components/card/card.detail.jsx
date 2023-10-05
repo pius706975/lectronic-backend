@@ -10,7 +10,7 @@ function CardDetail(props) {
     const navigate = useNavigate()
 
     const detail = ()=>{
-        navigate(`/products/detail/${props.id}`)
+        navigate(`/product/detail/${props.id}`)
     }
 
     const addToCart = ()=>{
