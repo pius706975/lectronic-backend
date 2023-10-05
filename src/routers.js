@@ -5,6 +5,7 @@ import Login from './pages/login/login'
 import Register from "./pages/register/sign.up"
 import UserProfile from "./pages/profile/profile"
 import Product from "./pages/product/product"
+import ProductDetail from "./pages/product/product.detail"
 
 function TheRouter() {
     return (
@@ -17,6 +18,7 @@ function TheRouter() {
                 <Route path="/signup" element={<Register/>} />
                 <Route path="/profile" element={<UserProfile/>} />
                 <Route path="/product" element={<Product/>} />
+                <Route path="/product/detail/:id" element={<ProductDetail/>} />
 
             </Routes>
 
