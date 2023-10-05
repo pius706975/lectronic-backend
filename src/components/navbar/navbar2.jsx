@@ -3,19 +3,19 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import './navbar.css'
 import { Button, Dropdown, Image, Nav, Navbar } from "react-bootstrap"
-import { Link } from "react-router-dom"
-import BrandLogo from '../../images/logoHeader.png'
-import toggleImage from '../../images/Logo.png'
-import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse"
+import Api from "../../helpers/api"
 import { useDispatch, useSelector } from "react-redux"
-import Api from '../../helpers/api'
-import {logout} from '../../store/reducer/user'
+import { Link, useNavigate } from "react-router-dom"
+import backLogo from '../../images/back.png'
+import toggleImage from '../../images/Logo.png'
+import { logout } from "../../store/reducer/user"
 
-function NavbarCom() {
+function NavbarCom2() {
 
     const dispatch = useDispatch()
     const {isAuth} = useSelector((state)=>state.users)
     const api = Api()
+    const navigate = useNavigate()
     const [user, setUser] = useState('')
 
     const getUser = ()=>{
@@ -31,34 +31,30 @@ function NavbarCom() {
         })
     }
 
+    const handleHistory = ()=>{
+        navigate(-1)
+    }
+
     useEffect(()=>{
         if (isAuth) {
             getUser()
         }
     }, [isAuth])
 
-    return (
-        <div className="nav-app">
 
+
+    return (
+        <div className="nav-app2"> 
             <Navbar expand="lg" className="navbar" style={{maxWidth: '1350px', margin: 'auto'}}>
                 
-                <Navbar.Brand className="nav-brand" as={Link} to="/" >
-                    <img src={BrandLogo} alt="Brand" width="150" height="auto" />
+                <Navbar.Brand as={Link} to="/" >
+                    <button className="log-arrow-back" onClick={handleHistory}>
+                        <Image style={{width: '40px'}} src={backLogo}/>
+                    </button>
                 </Navbar.Brand>
 
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
-                <NavbarCollapse id="basic-navbar-nav" >
-
                     <Nav className="mx-auto drop" ></Nav>
                     <Nav className="mx-auto drop" ></Nav>
-
-                    <Nav className="mx-auto drop">
-                        <Nav.Link className="nav-link" href="/">Home</Nav.Link>
-                        <Nav.Link className="nav-link" href="/product">Product</Nav.Link>
-                        <Nav.Link className="nav-link" href="#">Community</Nav.Link>
-                        <Nav.Link className="nav-about" href="#">About</Nav.Link>
-                    </Nav>
 
                     <Nav>
                         {isAuth ? (
@@ -94,12 +90,9 @@ function NavbarCom() {
                         )}
                     </Nav>  
 
-                </NavbarCollapse>
-
             </Navbar>
-
         </div>
     )
 }
 
-export default NavbarCom
+export default NavbarCom2

@@ -11,15 +11,10 @@
     border: none;
     border-radius: 10px;
     margin: 10px;
-    transition: 0.15s;
-    color: #0704db;
+    transition: transform 0.2s;
 }
 .log-arrow-back:hover {
-    background-color: #b9b4b4;
-}
-.log-arrow-back:active {
-    background-color: #8f8b8b;
-    color: white;
+    transform: scale(1.05);
 }
 
 .log-form-container {

@@ -8,6 +8,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import Api from '../../helpers/api'
 import {login} from '../../store/reducer/user'
+import { Image } from "react-bootstrap"
+import backLogo from '../../images/back.png'
 
 function Login() {
 
@@ -60,7 +62,7 @@ function Login() {
                 }
             })
         } catch (error) {
-            console.log('An error occurred: ', error.message);
+            console.log('An error occurred: ', error.message)
         }
     }
 
@@ -90,7 +92,7 @@ function Login() {
                 </div>         
                 <div className="log-form-container">
                     <button className="log-arrow-back" onClick={handleHistory}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 60 60" fill="none"><g filter="url(#filter0_b_701_161)"><rect width="60" height="60" rx="10" fill="#0300AD" fill-opacity="0.1"/></g><path d="M36 41L24 29.5L36 18" stroke="#0300AD" stroke-width="2" stroke-linecap="round"/><defs><filter id="filter0_b_701_161" x="-100" y="-100" width="260" height="260" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feGaussianBlur in="BackgroundImageFix" stdDeviation="50"/><feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_701_161"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_701_161" result="shape"/></filter></defs></svg>
+                        <Image src={backLogo}/>
                     </button>
                     <form className="login-form">                  
                         <h1 className="text-left mb-5">Welcome Back!</h1>
@@ -109,7 +111,7 @@ function Login() {
                         <a className="forgot-password" href="#">Forgot Password?</a>
                         <button onClick={loginHandler} type="submit" className="log-button-REG">Login</button>
                         <div className="not-register">
-                            <p>Not register yet? <Link className="create-acc" to={"/signup"}>Create an Account</Link></p>
+                            <p>Not registered yet? <Link className="create-acc" to={"/signup"}>Create an Account</Link></p>
                         </div>
                     </form>
                 </div>         
