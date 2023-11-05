@@ -25,6 +25,16 @@
     padding: 10px;
 }
 
+.log-arrow-back {
+    border: none;
+    border-radius: 10px;
+    margin: 10px;
+    transition: transform 0.2s;
+}
+.log-arrow-back:hover {
+    transform: scale(1.05);
+}
+
 h1 {
     font-size: 40px;
     font-weight: bold;
@@ -32,6 +42,7 @@ h1 {
 
 p {
     font-size: 20px;
+    color: #858585;
 }
 
 .register-form {

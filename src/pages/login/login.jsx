@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import './login.css'
 import image from './image18.png'
-import vector from './Vector.png'
+import logo from '../../images/Logo.png'
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import Api from '../../helpers/api'
@@ -32,7 +32,6 @@ function Login() {
 
     const inputHandler = (e)=>{
         e.preventDefault()
-
         const data = {...users}
         data[e.target.name] = e.target.value
         setUsers(data)
@@ -77,45 +76,77 @@ function Login() {
         document.title = 'Login'
     }, [isAuth])
 
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(()=>{
+        const handleResize = ()=>{
+            setIsMobile(window.innerWidth <= 1000)
+        }
+
+        handleResize()
+
+        window.addEventListener('resize', handleResize)
+
+        return ()=> window.removeEventListener('resize', handleResize)
+    }, [])
+
     return (
-        <div className="login-app">
-            <div className="log-content">
-                <div className="log-right-bg col-md-5">            
-                    <img src={image} alt="pic"/>
-                    <div>
-                        <div className="log-message-box row">
-                            <h3 id="log-h3">Welcom to Lectronic</h3>
-                            <p>We are an e-commerce that is engaged in buying and<br/>selling electronic goods, get our special offer now!</p>
-                        </div>                     
-                        <img className="log-vector" src={vector} alt="vector1" />
+        <div className="login-app">            
+            <div className="login-container">
+                <div className="login-content">
+                    <div className="login-left-side">
+                            <button className="log-arrow-back" onClick={handleHistory}>
+                                <Image src={backLogo}/>
+                            </button>
+                        <form className="login-form">           
+                            <h1 className="text-left mb-5">Welcome, Please<br/>Create an Account</h1>
+                            <p>Please fill in your name, email, and password</p>  
+                                            
+                            <div className="log-form-group">
+                                <input type="email" name="email" placeholder="Your e-mail address" onChange={inputHandler} required/>
+                            </div>                
+                                
+                            <div className="log-form-group">
+                                <input type="password" name="password" placeholder="Your password" onChange={inputHandler} required/>
+                            </div>
+
+                            <div className="error-message">
+                                {errorMessage && <p className="error-message">{errorMessage}</p>}
+                            </div>
+
+                            <div className="log-flex">
+                                <a href="#" className="forgot-password">Forgot Password?</a>
+                                <button type="submit" className="log-button-LOG" onClick={loginHandler}>Login</button>
+                            </div>
+
+                            <div className="log-form-group">
+                                <p className="to-reg">Not registered yet? <a href="/signup">Create an Account</a></p>
+                            </div>
+                        </form>
                     </div>
-                </div>         
-                <div className="log-form-container">
-                    <button className="log-arrow-back" onClick={handleHistory}>
-                        <Image src={backLogo}/>
-                    </button>
-                    <form className="login-form">                  
-                        <h1 className="text-left mb-5">Welcome Back!</h1>
-                        <p>Steps to get started, find the best stuff</p>                  
-                        <div className="log-form-group">
-                            <input onChange={inputHandler} type="email" name="email" placeholder="Your e-mail address" required/>
-                        </div>                 
-                        <div className="log-form-group">
-                            <input onChange={inputHandler} type="password" name="password" placeholder="Your password" required/>
-                        </div>
 
-                        <div className="error-message">
-                            {errorMessage && <p style={{color: 'red', fontSize: '15px'}} className="error-message">{errorMessage}</p>}
-                        </div>
+                    <div className="box">
+                        <div className="row">
+                            {!isMobile && (
+                                <div className="right-bg">
+                                    <Image src={image} className="right-img-log"/>
+                                    <div className="text-box">
+                                        <div className="message-box">
+                                            <Image src={logo} className="message-logo"/>
 
-                        <a className="forgot-password" href="#">Forgot Password?</a>
-                        <button onClick={loginHandler} type="submit" className="log-button-REG">Login</button>
-                        <div className="not-register">
-                            <p>Not registered yet? <Link className="create-acc" to={"/signup"}>Create an Account</Link></p>
+                                            <p>&nbsp;</p>
+
+                                            <h3 id="h3">Welcome to Lectronic</h3>
+                                            
+                                            <p>We are an e-commerce that is engaged in buying and selling electronic goods, get our special offer now!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                    </form>
-                </div>         
-            </div>
+                    </div>
+                </div>
+            </div>       
         </div>
     )
 }
