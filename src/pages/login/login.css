@@ -1,10 +1,28 @@
-.log-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.login-app {
+    height: max-content;
+}
+
+.login-container {
+    max-width: 1200px;
+    width: 100%;
     margin: auto;
-    margin-left: 9%;
-    height: auto;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.040);
+}
+
+.login-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    /* padding: 30px 0; */
+}
+
+.login-content .login-left-side {
+    max-width: 500px;
+    min-width: 270px;
+    overflow: hidden;
+    padding: 10px;
 }
 
 .log-arrow-back {
@@ -17,127 +35,142 @@
     transform: scale(1.05);
 }
 
-.log-form-container {
-    justify-content: center;
-    margin-right: 50px;
-}
-
 h1 {
     font-size: 40px;
+    font-weight: bold;
 }
 
 p {
     font-size: 20px;
+    color: #858585;
 }
 
 .login-form {
     margin-top: 10%;
     margin-bottom: 10%;
-    margin: 5%;
-    max-width: 30%;
+    margin: 5% auto;
 }
 
 .log-form-group{
     margin-bottom: 10px;
 }
+
 .log-form-group input {
-    outline: none;
-    border: 1px solid rgb(189, 185, 185);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.144);
+    border: none;
     border-radius: 10px;
-    padding: 10px 10px 10px 10px;
+    padding: 10px;
     width: 100%;
+    outline: none;
+}
+
+.error-message {
+    color: red;
+    font-size: 16px;
+}
+
+.log-flex {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .forgot-password {
-    color: black;
-    text-decoration: none;
-    font-weight: 500;
+    color: #777777;
+    font-size: 20px;
 }
 
-.log-button-REG {
+.log-button-LOG {
     font-size: 15px;
-    padding: 10px 40px 10px 40px;
+    padding: 10px 20px 10px 20px;
     background-color: #0300AD;
     color: white;
     border-radius: 10px;
     border: 0;
     font-weight: bold;
     transition: 0.15s;
-    float: right;
 }
-.log-button-REG:hover {
+.log-button-LOG:hover {
     background-color: #0704db;
 }
-.log-button-REG:active {
-    padding: 9px 39px 9px 39px;
+.log-button-LOG:active {
+    padding: 9px 19px 9px 19px;
     background-color: white;
     color: #0704db;
     border: 1px solid #0704db;
 }
 
-.log-right-bg {
-    margin: 10px auto;
-    border-radius: 20px;
-    position: absolute;
-    height: 97%;
-    background-color: #415FE7;
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size: contain;
-    margin-left: 40%;
-    overflow: hidden;
-}
-.log-right-bg img {
-    position: absolute;
-    max-width: 100%;
-    height: auto;
-    bottom: -5%;
-    left: -5%;
-}
-
-.log-message-box {
-    position: absolute;
-    border-radius: 10px;
-    bottom: 3%;
-    left: 15%;
-    right: 15%;
-    width: 70%;
-    height: 35%;
-    opacity: 0.8;
-    background-image: linear-gradient(to right, #3657e9, #6071be, #153ae0) ;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.log-vector {
-    background-color: #0704db;
-    padding: 10px 15px 10px 15px;
-    border-radius: 10px;
-    margin-left: 20%;
-    top: 65%;
-    height: auto;
-}
-
-#log-h3 {
-    color: white;
-    margin-top: 15%;
-    margin-left: 0%;
-    margin-top: 80px;
-    height: auto;
-}
-
-.log-message-box p {
-    font-size: 15px;
-    color: white;
-    height: auto;
-    margin-bottom: 10%;
-    max-width: 400px;
-}
-
-.not-register {
-    font-size: 15px;
-    margin-top: 30%;
+.to-reg {
+    color: black;
     text-align: center;
+    margin-top: 50px;
+}
+
+a {
+    text-decoration: none;
+    color: #0300AD;
+    transition: color 0.15s;
+}
+a:hover {
+    color: #02005a;
+}
+a:active {
+    color: white;
+}
+
+.login-content .box {
+    max-width: 600px;
+    min-width: 290px;
+    border-radius: 10px;
+}
+
+.box .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.right-bg {
+    height: 100%;
+    width: 100%;
+    background-color: #415FE7;
+    border-radius: 10px;
+    overflow: hidden;
+    background-size: contain;
+    position: relative;
+}
+
+.right-img-log {
+    max-width: 560px;
+    min-width: 270px;
+    height: min-content;
+    margin-top: 25%;
+}
+
+.text-box {
+    width: 75%;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(to right, rgba(3, 0, 173, 0.815), rgba(78, 75, 255, 0.849), rgba(3, 0, 173, 0.815));
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.message-box .message-logo {
+    width: 50px;
+}
+
+.message-box h3 {
+    color: white;
+    font-weight: bold;
+}
+
+.message-box p {
+    width: 90%;
+    color: white;
+    font-size: 15px;
 }
