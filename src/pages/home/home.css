@@ -92,29 +92,38 @@
 
   /* Section 3 */
   .product-btn {
-    color: grey;
-    background-color: white;
-    transition: backgroud-color 0.2s, color 0.2s;
+    color: #0300ad;
+    background: white;
+    border: 1px solid white;
+    transition: background-color 0.2s, color 0.2s, border 0.2s;
   }
   .product-btn:hover {
-    background-color: #0020b2;
+    background-color: #0300ad;
+    border: 1px solid #0300ad;
     color: white;
   }
 
   .input-search {
-    border: 1px solid #0020b2;
-    border-right: none;
+    /* border: 1px solid #0020b2; */
+    border: none;
+    border-radius: 10px;
   }
 
-  .search-btn-home {
-    background-color: white;
+  .sec3-search-btn {
+    background-color: rgba(255, 255, 255, 0);
     color: black;
     border: 1px solid #0020b2;
     border-left: none;
-    transition: background-color 0.2s;
+    transition: color 0.2s;
+    border-radius: 10px;
+    max-width: fit-content;
+    padding: 0 10px 0 10px;
   }
-  .search-btn-home:hover {
-    background-color: #0020b2;
+  .sec3-search-btn:hover {
+    color: #0020b2;
+  }
+  .sec3-search-btn:active {
+    color: rgb(126, 126, 126);
   }
 
   .view-all-btn {
