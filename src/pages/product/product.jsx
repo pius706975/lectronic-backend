@@ -109,6 +109,10 @@ function Product() {
         navigate('/cart')
     }
 
+    useEffect(()=>{
+        document.title = 'Products'
+    }, [])
+
     const displayProducts = query ? searchResults : filteredProducts
 
     return (

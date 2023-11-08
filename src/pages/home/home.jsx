@@ -19,6 +19,9 @@ function Home() {
     const [categories, setCategories] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
     const [selectedCategory, setSelectedCategory] = useState(null)
+    const [searchResults, setSearchResults] = useState([])
+    const [keyword, setKeyword] = useState('')
+    const [query, setQuery] = useState('')
 
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(4)
@@ -58,11 +61,26 @@ function Home() {
                 setRows(data[0].totalRows)
 
                 // console.log(data)
-                console.log(filteredProducts)
+                // console.log(filteredProducts)
             }
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const searchProduct = async ()=>{
+        api.requests({
+            method: 'GET',
+            url: `/product/name?name=${keyword}&page=${page}&limit=${limit}`
+        }).then((res)=>{
+            const data = res.data.result
+            setSearchResults(data[0].result)
+            setPages(data[0].totalPages)
+            setRows(data[0].totalRows)
+            // console.log(data)
+        }).catch((err)=>{
+            console.log(err)
+        })
     }
 
     useEffect(()=>{
@@ -72,10 +90,21 @@ function Home() {
     useEffect(()=>{
         filterByCategory()
     }, [page, selectedCategory])
+
+    useEffect(()=>{
+        searchProduct()
+    }, [page, keyword])
+
+    const searchData = (e)=>{
+        e.preventDefault()
+        setKeyword(query)
+    }
     
     useEffect(()=>{
         document.title = 'Home'
     }, [])
+
+    const displayProducts = query ? searchResults : filteredProducts
 
     return (
         <div className="home-app">
@@ -186,17 +215,28 @@ function Home() {
                                     })
                                 }
 
-                                <div style={{ margin: "", borderRadius: "10px", border: "1px solid #0020b2"}}>
+                                <div style={{borderRadius: "10px", border: "1px solid #0020b2"}}>
                                     <InputGroup>
                                         <FormControl 
                                             type="text"
                                             className="input-search" 
                                             placeholder="Search" 
                                             aria-label="Type to search" 
-                                            aria-describedby="basic-addon2" 
+                                            aria-describedby="basic-addon2"
+                                            value={query}
+                                            onChange={(e)=>{
+                                                setQuery(e.target.value)
+                                                setPage(1)
+                                            }}
+                                            onKeyDown={(e)=>{
+                                                if (e.key === 'Enter') {
+                                                    e.preventDefault()
+                                                    setKeyword(query)
+                                                }
+                                            }}
                                         />
 
-                                        <button type="submit" className="sec3-search-btn" ><BsSearch/></button>
+                                        <button type="submit" className="sec3-search-btn" onClick={searchData}><BsSearch/></button>
                                     </InputGroup>
                                 </div>
                             </div>
@@ -205,7 +245,7 @@ function Home() {
 
                             <div className="filtered-category-list" style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', justifyItems: 'left', maxWidth: '1100px', margin: 'auto', marginBottom: '50px'}}>
                                 {
-                                    filteredProducts.map((data)=>{
+                                    displayProducts.map((data)=>{
                                         return (
                                             <div key={data.product_id}>
                                                 <CardHome

@@ -15,7 +15,7 @@ function CardHome(props) {
     return (
         <div className="detail">
             
-            <Card onClick={detail} className="detail-card" style={{ width: '250px', height: '340px', borderRadius: '20px', padding: '10px', marginRight: '10px'}}>
+            <Card onClick={detail} className="detail-card" style={{ width: '250px', height: '340px', borderRadius: '20px', padding: '10px', marginRight: '10px', marginBottom: '10px'}}>
 
                 <Card.Title style={{fontWeight: '400', fontSize: '13px'}}>{props.name}</Card.Title>
 
