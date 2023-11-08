@@ -2,24 +2,48 @@
     background-color: #ebf2f4;
 }
 
-.product p a {
+.footer-menu1 {
+    text-decoration: none;
+    color: rgb(66, 66, 66);
+    font-size: 15px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+.footer-menu1:hover {
+    color: blue;
+}
+.footer-menu1:active {
+    color: white;
+}
+
+.footer-menu2 {
     text-decoration: none;
     color: rgb(66, 66, 66);
     transition: color 0.2s;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
 }
 
-.product p a:hover {
-    color: black;
+.footer-menu2:hover {
+    color: blue;
+}
+.footer-menu2:active {
+    color: white;
 }
 
-.help p a {
+.footer-menu3 {
     text-decoration: none;
     color: rgb(66, 66, 66);
     transition: color 0.2s;
+    font-size: 15px;
+    font-weight: bold;
 }
-
-.help p a:hover {
-    color: black;
+.footer-menu3:hover {
+    color: blue;
+}
+.footer-menu3:active {
+    color: white;
 }
 
 .copyright {

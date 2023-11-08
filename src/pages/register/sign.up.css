@@ -1,56 +1,72 @@
-.reg-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-    margin-left: 9%;
-    height: auto;
+.register-app {
+    height: max-content;
 }
 
-.arrow-back {
+.register-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.040);
+}
+
+.register-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    /* padding: 30px 0; */
+}
+
+.register-content .register-left-side {
+    max-width: 500px;
+    min-width: 270px;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.log-arrow-back {
     border: none;
     border-radius: 10px;
     margin: 10px;
-    transition: 0.15s;
-    color: #0704db;
+    transition: transform 0.2s;
 }
-.arrow-back:hover {
-    background-color: #b9b4b4;
-}
-.arrow-back:active {
-    background-color: #8f8b8b;
-    color: white;
-}
-
-.form-container {
-    justify-content: center;
-    margin-right: 50px;
+.log-arrow-back:hover {
+    transform: scale(1.05);
 }
 
 h1 {
     font-size: 40px;
+    font-weight: bold;
 }
 
 p {
     font-size: 20px;
+    color: #858585;
 }
 
 .register-form {
     margin-top: 10%;
     margin-bottom: 10%;
-    margin: 5%;
-    max-width: 30%;
+    margin: 5% auto;
 }
 
 .reg-form-group{
     margin-bottom: 10px;
 }
+
 .reg-form-group input {
-    border: 1px solid rgb(189, 185, 185);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.144);
+    border: none;
     border-radius: 10px;
-    padding: 10px 10px 10px 10px;
+    padding: 10px;
     width: 100%;
     outline: none;
+}
+
+.error-message {
+    color: red;
+    font-size: 16px;
 }
 
 .reg-button-REG {
@@ -74,63 +90,58 @@ p {
     border: 1px solid #0704db;
 }
 
-.right-bg {
-    margin: 10px auto;
-    border-radius: 20px;
-    position: absolute;
-    height: 97%;
-    background-color: #415FE7;
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size: contain;
-    margin-left: 40%;
-    overflow: hidden;
-}
-.right-bg img {
-    position: absolute;
-    max-width: 115%;
-    height: auto;
-    bottom: 0;
-    left: -15%;
+.register-content .box {
+    max-width: 600px;
+    min-width: 290px;
+    border-radius: 10px;
 }
 
-.message-box {
-    position: absolute;
-    border-radius: 10px;
-    bottom: 3%;
-    left: 15%;
-    right: 15%;
-    width: 70%;
-    height: 35%;
-    opacity: 0.8;
-    background-image: linear-gradient(to right, #3657e9, #6071be, #3657e9) ;
-    color: white;
+.box .row {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
 }
 
-.vector {
-    background-color: #0704db;
-    padding: 10px 15px 10px 15px;
+.right-bg {
+    height: 100%;
+    width: 100%;
+    background-color: #415FE7;
     border-radius: 10px;
-    margin-left: 30%;
-    top: 65%;
-    height: auto;
+    overflow: hidden;
+    background-size: contain;
+    position: relative;
 }
 
-#h3 {
+.right-img {
+    max-width: 700px;
+    min-width: 270px;
+    height: min-content;
+    margin-top: 25%;
+}
+
+.text-box {
+    width: 75%;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(to right, rgba(3, 0, 173, 0.815), rgba(78, 75, 255, 0.849), rgba(3, 0, 173, 0.815));
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.message-box .message-logo {
+    width: 50px;
+}
+
+.message-box h3 {
     color: white;
-    margin-top: 15%;
-    margin-left: 0%;
-    margin-top: 80px;
-    height: auto;
+    font-weight: bold;
 }
 
 .message-box p {
-    font-size: 15px;
+    width: 90%;
     color: white;
-    height: auto;
-    margin-bottom: 10%;
-    max-width: 400px;
+    font-size: 15px;
 }

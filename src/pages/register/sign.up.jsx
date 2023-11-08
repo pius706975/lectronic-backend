@@ -1,54 +1,147 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import './sign.up.css'
-import image from "./image9.png"
-import vector from "./Vector.png"
+import {useNavigate} from 'react-router-dom'
+import backLogo from '../../images/back.png'
+import {Image} from 'react-bootstrap'
+import {useDispatch, useSelector} from 'react-redux'
+import Api from "../../helpers/api"
+import { addUsers } from "../../store/reducer/user"
+import image from './image-9.png'
+import logo from '../../images/Logo.png'
 
-function Register(params) {
+function Register() {
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const api = Api()
+    const {isAuth} = useSelector((state)=>state.users)
+    const [users, setUsers] = useState({
+        name: '',
+        email: '',
+        password: '',
+        role: 'user'
+    })
+
+    const [errorMessage, setErrorMessage] = useState('')
+    const [errorTimer, setErrorTimer] = useState(null)
+    const clearErrorMessage = ()=>{
+        setErrorMessage('')
+        setErrorTimer(null)
+    }
+
+    const onChangeInput = (e)=>{
+        e.preventDefault()
+        const data = {...users}
+        data[e.target.name] = e.target.value
+        setUsers(data)
+    }
+
+    const register = async (e)=>{
+        e.preventDefault()
+
+        try {
+            api.requests({
+                method: 'POST',
+                url: '/auth/register',
+                data: users
+            }).then((res)=>{
+                const data = res.data
+                dispatch(addUsers(data))
+                alert('We have sent you a verification step to your email')
+                navigate('/')
+            }).catch((error)=>{
+                if (error.response && error.response.data) {
+                    const errorMessage = error.response.data.result[0].message
+                    setErrorMessage(errorMessage)
+                    setErrorTimer(setTimeout(clearErrorMessage, 5000))
+                    // console.log(errorMessage)
+                } else {
+                    console.log('An error occurred: ', error.message)
+                }
+            })
+        } catch (error) {
+            console.log('An error occurred: ', error.message)
+        }
+    }
 
     useEffect(()=>{
         document.title = 'Sign Up'
     }, [])
 
+    const handleHistory = ()=>{
+        navigate(-1)
+    }
+
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(()=>{
+        const handleResize = ()=>{
+            setIsMobile(window.innerWidth <= 1000)
+        }
+
+        handleResize()
+
+        window.addEventListener('resize', handleResize)
+
+        return ()=> window.removeEventListener('resize', handleResize)
+    }, [])
+
     return (
-        <div className="register-app">
-            <div>
-                <div className="right-bg col-md-5">               
-                    <img src={image} alt="pic" />
-                    <div className="box">
-                        <div className="message-box row">
-                            <h3 id="h3">Welcom to Lectronic</h3>
-                            <p>We are an e-commerce that is engaged in buying and<br/>selling electronic goods, get our special offer now!</p>
-                        </div>              
-                        <img className="vector" src={vector} alt="vector1" />
+        <div className="register-app">            
+            <div className="register-container">
+                <div className="register-content">
+                    <div className="register-left-side">
+                            <button className="log-arrow-back" onClick={handleHistory}>
+                                <Image src={backLogo}/>
+                            </button>
+                        <form className="register-form">           
+                            <h1 className="text-left mb-5">Welcome, Please<br/>Create an Account</h1>
+                            <p>Please fill in your name, email, and password</p>
+                
+                            <div className="reg-form-group">
+                                <input type="text" name="name" placeholder="What's your name?" onChange={onChangeInput} required/>
+                            </div>    
+                                            
+                            <div className="reg-form-group">
+                                <input type="email" name="email" placeholder="Your e-mail address" onChange={onChangeInput} required/>
+                            </div>                
+                                
+                            <div className="reg-form-group">
+                                <input type="password" name="password" placeholder="Your password" onChange={onChangeInput} required/>
+                            </div>
+
+                            <div className="error-message">
+                                {errorMessage && <p className="error-message">{errorMessage}</p>}
+                            </div>
+
+                            <button type="submit" className="reg-button-REG" onClick={register}>Register</button>
+                        </form>
                     </div>
-                </div>      
 
-                <div className="form-container">
-                    <button className="arrow-back">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 60 60" fill="none"><g filter="url(#filter0_b_701_161)"><rect width="60" height="60" rx="10" fill="#0300AD" fill-opacity="0.1"/></g><path d="M36 41L24 29.5L36 18" stroke="#0300AD" stroke-width="2" stroke-linecap="round"/><defs><filter id="filter0_b_701_161" x="-100" y="-100" width="260" height="260" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feGaussianBlur in="BackgroundImageFix" stdDeviation="50"/><feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_701_161"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_701_161" result="shape"/></filter></defs></svg>
-                    </button>
+                    <div className="box">
+                        <div className="row">
+                            {!isMobile && (
+                                <div className="right-bg">
+                                    <Image src={image} className="right-img"/>
+                                    <div className="text-box">
+                                        <div className="message-box">
+                                            <Image src={logo} className="message-logo"/>
 
-                    <form className="register-form">           
-                        <h1 className="text-left mb-5">Welcome, Please<br/>Create an Account</h1>
-                        <p>Please fill in your name, email, and password</p>
-                        <div className="reg-form-group">
-                            <input type="text" name="name" placeholder="What's your name?" required/>
-                        </div>    
-						<div className="reg-form-group">
-                            <input type="text" name="username" placeholder="Your username?" required/>
-                        </div>                
-                        <div className="reg-form-group">
-                            <input type="email" name="email" placeholder="Your e-mail address" required/>
-                        </div>                
-                        <div className="reg-form-group">
-                            <input type="password" name="password" placeholder="Your password" required/>
+                                            <p>&nbsp;</p>
+
+                                            <h3 id="h3">Welcome to Lectronic</h3>
+                                            
+                                            <p>We are an e-commerce that is engaged in buying and selling electronic goods, get our special offer now!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                        <button type="submit" className="reg-button-REG">Register</button>
-                    </form>
-                </div>       
-            </div>
+                    </div>
+                </div>
+            </div>       
         </div>
     )
 }
