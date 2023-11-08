@@ -136,7 +136,7 @@ function Home() {
             </div>
 
             {/* Section 2 */}
-            <div className="home-second-container" style={{marginTop: "120px"}}>
+            <div id="howitworks" className="home-second-container" style={{marginTop: "120px"}}>
                 <div style={{backgroundColor: "#f2f4fb", width: "150px", margin: "auto", borderRadius: "20px"}}>
                     <p style={{color: "#0020b2", textAlign: "center", padding: "10px"}}>How it works</p>
                 </div>
