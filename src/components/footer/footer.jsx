@@ -1,14 +1,35 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import './footer.css'
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit'
 import {FaFacebook, FaInstagram, FaTwitter} from 'react-icons/fa'
 import logo from './logofooter.png'
+import Api from "../../helpers/api"
 
 function FooterCom() {
 
     const currentYear = new Date().getFullYear()
+
+    const api = Api()
+    const [categories, setCategories] = useState([])
+
+    const getCategories = async ()=>{
+        api.requests({
+            method: 'GET',
+            url: '/category'
+        }).then((res)=>{
+            const data = res.data.result
+            setCategories(data)
+            console.log(data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    useEffect(()=>{
+        getCategories()
+    }, [])
 
     return (
         <MDBFooter className='text-center text-lg-start text-muted footer-app'>
@@ -25,31 +46,35 @@ function FooterCom() {
                             <p></p>
                             <p>91 Spring Dr. Hudsonville, MI 49426</p>
                             <p></p>
-                            <h4><FaFacebook/>     <FaInstagram/>     <FaTwitter/></h4>
+                            <h4>
+                                <a href="https://id-id.facebook.com/" target="blank"><FaFacebook/></a> <a href="https://www.instagram.com/" target="blank"><FaInstagram/></a> <a href="https://twitter.com/?lang=en" target="blank"><FaTwitter/></a>
+                            </h4>
                         </MDBCol>
 
                         <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4 text-dark'>
                             <h6 className='text-uppercase fw-bold mb-4'>How it works</h6>
-                            <p>Select Product</p>
-                            <p>Make Payment</p>
-                            <p>Receive Product</p>
+                            <p><a className="footer-menu1" href="#howitworks">Select Product</a></p>
+                            <p><a className="footer-menu1" href="#howitworks">Make Payment</a></p>
+                            <p><a className="footer-menu1" href="#howitworks">Receive Product</a></p>
                         </MDBCol>
 
                         <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-md-0 mb-4 product'>
                             <h6 className='text-uppercase fw-bold mb-4 text-dark'>Product</h6>
-                            <p><a href='/headphone' className='text-reset'>Headphone</a></p>
-                            <p><a href='/speaker' className='text-reset'>Speaker</a></p>
-                            <p><a href='/audio-interface' className='text-reset'>Audio Interface</a></p>
-                            <p><a href='/audio-mixer' className='text-reset'>Audio Mixer</a></p>
-                            <p><a href='/additional-equipment' className='text-reset'>Additional Equipment</a></p>
+                            {
+                                categories.map((data)=>{
+                                    return (
+                                        <p><a href='/product' className='footer-menu2'>{data.category_name}</a></p>
+                                    )
+                                })
+                            }
                         </MDBCol>
 
                         <MDBCol md="4" lg="3" xl="3" className='mx-auto mb-md-0 mb-4 help text-dark'>
                             <h6 className='text-uppercase fw-bold mb-4'>Help</h6>
-                            <p><a href="#">About</a></p>
-                            <p><a href="#">Contact Us</a></p>
-                            <p><a href="#">Download App</a></p>
-                            <p><a href="#">FAQs</a></p>
+                            <p><a className="footer-menu3" href="#">About</a></p>
+                            <p><a className="footer-menu3" href="#">Contact Us</a></p>
+                            <p><a className="footer-menu3" href="#">Download App</a></p>
+                            <p><a className="footer-menu3" href="#">FAQs</a></p>
                         </MDBCol>
                     </MDBRow>
 
