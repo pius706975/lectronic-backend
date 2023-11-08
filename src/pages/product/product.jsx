@@ -75,7 +75,7 @@ function Product() {
         }).then((res)=>{
             const data = res.data.result
             setSearchResults(data[0].result)
-            setPages(data[0].totalPages)
+            setPages(data[0].totalPages) 
             setRows(data[0].totalRows)
             // console.log(data)
         }).catch((err)=>{
