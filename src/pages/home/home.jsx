@@ -120,7 +120,7 @@ function Home() {
                             <p className="banner-paragraph">Find stuff what you want easily</p>
 
                             <div className="banner-btn d-flex">
-                                <Button className="banner-shop-btn"><BsBag/> Shop now</Button>
+                                <Button href="#our-products" className="banner-shop-btn"><BsBag/> Shop now</Button>
                                 <Button style={{visibility: "hidden"}}></Button>
                                 <Button className="banner-offer-btn"><BsHandbag/> Be a seller</Button>
                             </div>
@@ -179,7 +179,7 @@ function Home() {
             </div>
             
             {/* Section 3 */}
-            <div className="home-third-container" style={{marginTop: "30px", marginBottom: '100px'}}>
+            <div id="our-products" className="home-third-container" style={{marginTop: "30px", marginBottom: '100px'}}>
                 <div style={{backgroundColor: "#f2f4fb", width: "150px", margin: "auto", borderRadius: "20px"}}>
                     <p style={{color: "#0020b2", textAlign: "center", padding: "10px"}}>Our Products</p>
                 </div>
