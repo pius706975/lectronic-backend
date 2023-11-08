@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import './home.css'
@@ -9,12 +9,102 @@ import { Button, Image, FormControl, InputGroup } from "react-bootstrap"
 import {BsBag, BsHandbag, BsBox, BsSearch} from 'react-icons/bs'
 import {PiShoppingBag} from 'react-icons/pi'
 import {FaMoneyBillWave} from 'react-icons/fa'
+import Api from "../../helpers/api"
+import CardHome from "../../components/card/card.home"
 
 function Home() {
+
+    const api = Api()
+
+    const [categories, setCategories] = useState([])
+    const [filteredProducts, setFilteredProducts] = useState([])
+    const [selectedCategory, setSelectedCategory] = useState(null)
+    const [searchResults, setSearchResults] = useState([])
+    const [keyword, setKeyword] = useState('')
+    const [query, setQuery] = useState('')
+
+    const [page, setPage] = useState(1)
+    const [limit, setLimit] = useState(4)
+    const [pages, setPages] = useState(0)
+    const [rows, setRows] = useState(0)
+    
+
+    const getCategories = async ()=>{
+        api.requests({
+            method: 'GET',
+            url: '/category'
+        }).then((res)=>{
+            const data = res.data.result
+            setCategories(data)
+
+            if (data.length > 0) {
+                setSelectedCategory(data[0].category_name)
+            }
+
+            // console.log(data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    const filterByCategory = async ()=>{
+        try {
+            if (selectedCategory) {
+                const res = await api.requests({
+                    method: 'GET',
+                    url: `product/category?category_name=${selectedCategory}&page=${page}&limit=${limit}` 
+                })
+
+                const data = res.data.result
+                setFilteredProducts(data[0].result)
+                setPages(data[0].totalPages)
+                setRows(data[0].totalRows)
+
+                // console.log(data)
+                // console.log(filteredProducts)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const searchProduct = async ()=>{
+        api.requests({
+            method: 'GET',
+            url: `/product/name?name=${keyword}&page=${page}&limit=${limit}`
+        }).then((res)=>{
+            const data = res.data.result
+            setSearchResults(data[0].result)
+            setPages(data[0].totalPages)
+            setRows(data[0].totalRows)
+            // console.log(data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    useEffect(()=>{
+        getCategories()
+    }, [])
+
+    useEffect(()=>{
+        filterByCategory()
+    }, [page, selectedCategory])
+
+    useEffect(()=>{
+        searchProduct()
+    }, [page, keyword])
+
+    const searchData = (e)=>{
+        e.preventDefault()
+        setKeyword(query)
+    }
     
     useEffect(()=>{
         document.title = 'Home'
     }, [])
+
+    const displayProducts = query ? searchResults : filteredProducts
 
     return (
         <div className="home-app">
@@ -104,46 +194,74 @@ function Home() {
                     <div className="d-flex">
                         <div style={{maxWidth: "1700px", width: "100%", margin: "auto"}}>
                             
-                            <div style={{display: "flex", justifyContent: "space-around", flexWrap: "wrap", padding: "30px 0"}}>
-                                <div className="d-flex" style={{display: "flex", flexWrap: "wrap"}} >
-                                    <div style={{ margin: "auto", borderRadius: "20px"}}>
-                                        <Button className="product-btn" style={{width: "160px", border: "none"}}>Headphones</Button>
-                                    </div>
+                            <div style={{maxWidth: '1400px', margin:'auto', display: "flex", justifyContent: "space-around", flexWrap: "wrap", padding: "30px 0"}}>
+                                {
+                                    categories.map((data)=>{
+                                        return (
+                                            <div className="d-flex" style={{display: "flex", flexWrap: "wrap"}} >
+                                                <div style={{margin: "auto", borderRadius: "20px"}}>
+                                                    <Button
+                                                        style={{width: "160px", border: "none"}}
+                                                        key={data.category_name}
+                                                        className={`product-btn ${selectedCategory === data.category_name ? 'active' : ''}`}
+                                                        onClick={()=>{
+                                                            setSelectedCategory(data.category_name)
+                                                            setPage(1)
+                                                        }}
+                                                        >{data.category_name}</Button>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
 
-                                    <div style={{ margin: "auto", borderRadius: "20px"}}>
-                                        <Button className="product-btn" style={{width: "160px", border: "none"}}>Audio Interfaces</Button>
-                                    </div>
-
-                                    <div style={{ margin: "auto", borderRadius: "20px"}}>
-                                        <Button className="product-btn" style={{width: "160px", border: "none"}}>Audio Mixers</Button>
-                                    </div>
-
-                                    <div style={{ margin: "auto", borderRadius: "20px"}}>
-                                        <Button className="product-btn" style={{width: "160px", border: "none"}}>Speakers</Button>
-                                    </div>
-
-                                    <div style={{ margin: "auto", borderRadius: "20px"}}>
-                                        <Button className="product-btn" style={{width: "160px", border: "none"}}>Audio Equipments</Button>
-                                    </div>
-                                </div>
-
-                                <div style={{ margin: "", borderRadius: "20px"}}>
+                                <div style={{borderRadius: "10px", border: "1px solid #0020b2"}}>
                                     <InputGroup>
                                         <FormControl 
                                             type="text"
                                             className="input-search" 
                                             placeholder="Search" 
                                             aria-label="Type to search" 
-                                            aria-describedby="basic-addon2" 
+                                            aria-describedby="basic-addon2"
+                                            value={query}
+                                            onChange={(e)=>{
+                                                setQuery(e.target.value)
+                                                setPage(1)
+                                            }}
+                                            onKeyDown={(e)=>{
+                                                if (e.key === 'Enter') {
+                                                    e.preventDefault()
+                                                    setKeyword(query)
+                                                }
+                                            }}
                                         />
 
-                                        <Button type="submit" className="search-btn-home" ><BsSearch/></Button>
+                                        <button type="submit" className="sec3-search-btn" onClick={searchData}><BsSearch/></button>
                                     </InputGroup>
                                 </div>
                             </div>
 
+                            <p></p>
+
+                            <div className="filtered-category-list" style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', justifyItems: 'left', maxWidth: '1100px', margin: 'auto', marginBottom: '50px'}}>
+                                {
+                                    displayProducts.map((data)=>{
+                                        return (
+                                            <div key={data.product_id}>
+                                                <CardHome
+                                                    id={data.product_id}
+                                                    price={data.price}
+                                                    image={data.image} 
+                                                    name={data.name}
+                                                />
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+
                             <div className="text-center">
-                                <Button className="view-all-btn" style={{border: '1px solid 0020b2', borderRadius: '10px', fontWeight: '800'}}>View All</Button>
+                                <Button href="/product" className="view-all-btn" style={{border: '1px solid 0020b2', borderRadius: '10px', fontWeight: '800'}}>View All</Button>
                             </div>
                         </div>
                     </div>
