@@ -5,8 +5,10 @@ import Api from "../../helpers/api"
 import NavbarCom3 from "../../components/navbar/navbar3"
 import {BsCart, BsPencil, BsStar} from 'react-icons/bs'
 import currency from '../../helpers/format.currency'
-import { Button, Col, Nav, Row, Tab } from "react-bootstrap"
+import { Button, Nav, Row, Tab } from "react-bootstrap"
 import Rate from "../../components/rate/rate"
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 function ProductDetail() {
     
@@ -48,6 +50,10 @@ function ProductDetail() {
         getProduct()
     }, [])
 
+    useEffect(()=>{
+        Aos.init()
+    }, [])
+
     return(
         <div className="product-detail-app">
             <NavbarCom3/>
@@ -55,11 +61,11 @@ function ProductDetail() {
             <div className="product-detail">
                 <div className="details">
                     <div className="left-detail">
-                        <div className="big-img">
-                            <img src={product.image} alt="Product image" />
+                        <div data-aos='zoom-in' data-aos-duration='600' data-aos-offset='100' className="big-img">
+                            <img src={product.image} alt="Product_image" />
                         </div>
 
-                        <div className="details-menu">
+                        <div data-aos='zoom-in' data-aos-duration='600' data-aos-offset='100'  className="details-menu">
                             <h5 className="text-center" style={{fontWeight: 'bolder'}}>Details</h5>
 
                             <div className="row" style={{padding: '0px 10px 0 10px', fontWeight: 'bold', marginBottom: '10px'}}>
@@ -107,7 +113,7 @@ function ProductDetail() {
                     </div>
 
                     <div className="box">
-                        <div className="row">
+                        <div data-aos='fade-right' data-aos-duration='600' data-aos-offset='100'  className="row">
                             <h1>{product.name}</h1>
 
                             <p style={{fontSize: '15px', fontWeight: 'bold'}}>

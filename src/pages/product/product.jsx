@@ -26,9 +26,9 @@ function Product() {
     const [query, setQuery] = useState('')
 
     const [page, setPage] = useState(1)
-    const [limit, setLimit] = useState(12)
+    const [limit] = useState(12)
     const [pages, setPages] = useState(0)
-    const [rows, setRows] = useState(0)
+    const [setRows] = useState(0)
 
     const getCategories = async ()=>{
         api.requests({
@@ -119,7 +119,7 @@ function Product() {
         <div className="product-app">
             <NavbarCom2/>
             
-            <div className="search" style={{margin: '0px auto',     background: 'linear-gradient(to bottom, #f2f4fb 0%, #f2f4fb 50%, #ffffff00 50%, #ffffff00 100%)'}}>
+            <div className="search" style={{margin: '0px auto', background: 'linear-gradient(to bottom, #f2f4fb 0%, #f2f4fb 50%, #ffffff00 50%, #ffffff00 100%)'}}>
                 <div style={{borderRadius: "20px", maxWidth: '1100px', margin: 'auto', display: 'flex'}}>
                     <InputGroup>
                         <FormControl 
@@ -145,7 +145,7 @@ function Product() {
                     </InputGroup>
 
                     <Button style={{visibility: 'hidden'}}></Button>
-
+                    
                     <Button onClick={toCartPage} className="additional-product-btn">
                         <BsCart/>
                     </Button>

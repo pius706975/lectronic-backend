@@ -5,18 +5,20 @@ import './sign.up.css'
 import {useNavigate} from 'react-router-dom'
 import backLogo from '../../images/back.png'
 import {Image} from 'react-bootstrap'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import Api from "../../helpers/api"
 import { addUsers } from "../../store/reducer/user"
 import image from './image-9.png'
 import logo from '../../images/Logo.png'
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 function Register() {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const api = Api()
-    const {isAuth} = useSelector((state)=>state.users)
+    // const {isAuth} = useSelector((state)=>state.users)
     const [users, setUsers] = useState({
         name: '',
         email: '',
@@ -25,7 +27,7 @@ function Register() {
     })
 
     const [errorMessage, setErrorMessage] = useState('')
-    const [errorTimer, setErrorTimer] = useState(null)
+    const [setErrorTimer] = useState(null)
     const clearErrorMessage = ()=>{
         setErrorMessage('')
         setErrorTimer(null)
@@ -88,15 +90,22 @@ function Register() {
         return ()=> window.removeEventListener('resize', handleResize)
     }, [])
 
+    useEffect(()=>{
+        Aos.init()
+    }, [])
+
     return (
         <div className="register-app">            
             <div className="register-container">
                 <div className="register-content">
                     <div className="register-left-side">
+                        <div data-aos='zoom-in-right' data-aos-duration='600' data-aos-offset='100'>
                             <button className="log-arrow-back" onClick={handleHistory}>
                                 <Image src={backLogo}/>
                             </button>
-                        <form className="register-form">           
+                        </div>
+
+                        <form data-aos='fade-right' data-aos-duration='600' data-aos-offset='100' className="register-form">           
                             <h1 className="text-left mb-5">Welcome, Please<br/>Create an Account</h1>
                             <p>Please fill in your name, email, and password</p>
                 
@@ -121,7 +130,7 @@ function Register() {
                     </div>
 
                     <div className="box">
-                        <div className="row">
+                        <div data-aos='fade-left' data-aos-duration='600' data-aos-offset='100' className="row">
                             {!isMobile && (
                                 <div className="right-bg">
                                     <Image src={image} className="right-img"/>
