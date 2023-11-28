@@ -135,8 +135,8 @@ function Product() {
                             }}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
-                                    e.preventDefault();
-                                    setKeyword(query);
+                                    e.preventDefault()
+                                    setKeyword(query)
                                 }
                             }}
                         />

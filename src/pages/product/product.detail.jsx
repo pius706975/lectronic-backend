@@ -3,7 +3,7 @@ import './product.css'
 import { useParams } from "react-router-dom"
 import Api from "../../helpers/api"
 import NavbarCom3 from "../../components/navbar/navbar3"
-import {BsCart, BsPencil, BsStar} from 'react-icons/bs'
+import {BsCart, BsStar} from 'react-icons/bs'
 import currency from '../../helpers/format.currency'
 import { Button, Nav, Row, Tab } from "react-bootstrap"
 import Rate from "../../components/rate/rate"
@@ -25,7 +25,7 @@ function ProductDetail() {
         }).then((res)=>{
             const data = res.data.result[0]
             setProduct(data)
-            console.log(data)
+            // console.log(data)
         }).catch((err)=>{
             console.log(err)
         })
@@ -43,6 +43,36 @@ function ProductDetail() {
         if (qty < product.stock) {
             setQty(prevCount => prevCount + 1)
             setTotal( prevTotal => prevTotal + product.price)
+        }
+    }
+
+    const addToCart = async (productId, qty, status) => {
+        try {
+            const response = await api.requests({
+                method: 'POST',
+                url: '/cart',
+                data: {
+                    product_id: productId,
+                    qty: qty,
+                    status: status,
+                },
+          })
+
+          return response.data
+        } catch (error) {
+          console.error('Error adding to cart:', error)
+          throw error
+        }
+    }
+
+    const handleAddToCart = async () => {
+        try {
+            const productId = params.id
+            const status = 'Ready to pay'
+            await addToCart(productId, qty, status)
+            // console.log('Item added to cart:', result)
+        } catch (error) {
+            console.error('Error adding to cart:', error)
         }
     }
 
@@ -86,17 +116,13 @@ function ProductDetail() {
                                 </div>
                             </div>
 
-                            <div>
-                                <p style={{fontSize: '13px', fontWeight: 'bold', color: '#6160cc', cursor: 'pointer'}}><BsPencil/> Add notes</p>
-                            </div>
-
                             <div className="row" style={{padding: '0px 10px 0 10px', fontWeight: 'bold', marginBottom: '10px'}}>
                                 <div className="col-6" style={{margin: 'auto'}}>
                                     <p style={{fontSize: '10px', fontWeight: 'bold', color: '#777777'}}>Sub-Total</p>
                                 </div>
 
-                                <div className="col-6" style={{fontSize: '20px', textAlign: 'right'}}>
-                                    <p>{currency(total)}</p>
+                                <div className="col-6" style={{textAlign: 'right'}}>
+                                    <p style={{fontSize: '15px'}}>{currency(total)}</p>
                                 </div>
                             </div>
 
@@ -106,14 +132,14 @@ function ProductDetail() {
                                 </div>
 
                                 <div className="col-6" style={{fontSize: '20px', textAlign: 'right'}}>
-                                    <Button className="detail-cart-btn"><BsCart/></Button>
+                                    <Button className="detail-cart-btn" onClick={handleAddToCart}><BsCart/></Button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div className="box">
-                        <div data-aos='fade-right' data-aos-duration='600' data-aos-offset='100'  className="row">
+                        <div className="row" data-aos='fade-right' data-aos-duration='600' data-aos-offset='100'>
                             <h1>{product.name}</h1>
 
                             <p style={{fontSize: '15px', fontWeight: 'bold'}}>
@@ -163,7 +189,6 @@ function ProductDetail() {
                                     </>
                                 </Row>
                             </Tab.Container>
-                            
                         </div>
                     </div>
                 </div>

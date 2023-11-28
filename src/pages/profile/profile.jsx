@@ -184,7 +184,7 @@ function UserProfile() {
     }, [showAlert])
 
     const handleHistory = ()=>{
-        navigate('/')
+        navigate(-1)
     }
    
     // password modal
