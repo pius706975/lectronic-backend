@@ -9,11 +9,14 @@ import formatCurrency from "../../helpers/format.currency"
 import { RiDeleteBin6Line } from "react-icons/ri"
 import Aos from "aos"
 import 'aos/dist/aos.css'
+import CustomAlert from "../../components/alerts/custom-alert"
 
 function Cart() {
     const api = Api()
     const {isAuth} = useSelector((state)=>state.users)
     const [cartItem, setCartItem] = useState([])
+    const [showAlert, setShowAlert] = useState(false)
+    const [alertMessage, setAlertMessage] = useState('')
     
     const [searchResults, setSearchResults] = useState([])
     const [keyword, setKeyword] = useState('')
@@ -24,7 +27,7 @@ function Cart() {
             method: 'GET',
             url: '/user/profile'
         }).then((res)=>{
-            const data = res.data.result[0]
+            // const data = res.data.result[0]
             // console.log(data)
         }).catch((err)=>{
             console.log(err.message)
@@ -38,20 +41,36 @@ function Cart() {
         }).then((res)=>{
             const data = res.data.result
             setCartItem(data)
-            console.log(data)
+            // console.log(data)
         }).catch((err)=>{
             console.log(err)
         })
     }
 
-    const searchItem = async ()=>{
+    const searchItem = ()=>{
         api.requests({
             method: 'GET',
             url: `/cart/search?product_name=${keyword}`
         }).then((res)=>{
             const data = res.data.result
             setSearchResults(data)
-            console.log(data)
+            // console.log(data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    const deleteItem = (id)=>{
+        api.requests({
+            method: 'DELETE',
+            url: `/cart/id=${id}`
+        }).then((res)=>{
+            setShowAlert(true)
+            setAlertMessage('Item deleted')
+            setTimeout(() => {
+                setShowAlert(false)
+            }, 2000)
+            getAllItems()
         }).catch((err)=>{
             console.log(err)
         })
@@ -123,7 +142,7 @@ function Cart() {
             return total
         }, 0)
 
-        return totalItems === 1 ? `${totalItems} item` : `${totalItems} items`
+        return totalItems === 0 ? `${totalItems}` : totalItems === 1 ? `${totalItems} item` : `${totalItems} items`
     }
 
     const getBill = ()=>{
@@ -205,8 +224,14 @@ function Cart() {
 
                                                 <div className="right-item-card" style={{marginTop: 'auto'}}>
                                                     <div className="item-delete-btn">
-                                                        <p><RiDeleteBin6Line/></p>
+                                                        <p onClick={()=>deleteItem(data.cart_id)}><RiDeleteBin6Line/></p>
                                                     </div>
+
+                                                    <CustomAlert
+                                                        show={showAlert}
+                                                        onClose={()=>setShowAlert(false)}
+                                                        message="Item deleted"
+                                                    />
 
                                                     <p>&nbsp;</p>
 

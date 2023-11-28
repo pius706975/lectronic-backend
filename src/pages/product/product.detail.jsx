@@ -9,6 +9,7 @@ import { Button, Nav, Row, Tab } from "react-bootstrap"
 import Rate from "../../components/rate/rate"
 import Aos from "aos"
 import 'aos/dist/aos.css'
+import CustomAlert from "../../components/alerts/custom-alert"
 
 function ProductDetail() {
     
@@ -17,6 +18,8 @@ function ProductDetail() {
     const params = useParams()
     const api = Api()
     const [qty, setQty] = useState(0)
+    const [showAlert, setShowAlert] = useState(false)
+    const [alertMessage, setAlertMessage] = useState('')
 
     const getProduct = ()=>{
         api.requests({
@@ -36,7 +39,6 @@ function ProductDetail() {
             setQty(prevCount => prevCount - 1)
             setTotal( prevTotal => prevTotal - product.price)
         }
-
     }
 
     const handleIncrement = ()=>{
@@ -56,8 +58,9 @@ function ProductDetail() {
                     qty: qty,
                     status: status,
                 },
+          }).then(()=>{
           })
-
+          
           return response.data
         } catch (error) {
           console.error('Error adding to cart:', error)
@@ -69,7 +72,21 @@ function ProductDetail() {
         try {
             const productId = params.id
             const status = 'Ready to pay'
-            await addToCart(productId, qty, status)
+            if (qty === 0) {
+                setShowAlert(true)
+                setAlertMessage('Minimum item is 1')
+                setTimeout(() => {
+                    setShowAlert(false)
+                }, 2000)
+            } else {
+                setShowAlert(true)
+                setAlertMessage(`${product.name} added to cart`)
+                setTimeout(() => {
+                    setShowAlert(false)
+                }, 2000)
+
+                await addToCart(productId, qty, status)
+            }
             // console.log('Item added to cart:', result)
         } catch (error) {
             console.error('Error adding to cart:', error)
@@ -134,6 +151,12 @@ function ProductDetail() {
                                 <div className="col-6" style={{fontSize: '20px', textAlign: 'right'}}>
                                     <Button className="detail-cart-btn" onClick={handleAddToCart}><BsCart/></Button>
                                 </div>
+
+                                <CustomAlert
+                                    show={showAlert}
+                                    onClose={()=>setShowAlert(false)}
+                                    message={alertMessage}
+                                />
                             </div>
                         </div>
                     </div>

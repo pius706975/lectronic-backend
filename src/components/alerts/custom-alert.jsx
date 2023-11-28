@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Button, Modal } from "react-bootstrap";
+import React from "react"
+import { Modal } from "react-bootstrap";
 
 function CustomAlert({show, setShow, message}) {
 
@@ -9,7 +9,7 @@ function CustomAlert({show, setShow, message}) {
         <>
             <Modal show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter" centered backdrop="static">
                 <Modal.Body>
-                    <h3 style={{color: 'green', fontWeight: 'bolder', textAlign: 'center'}}>{message}</h3>
+                    <h3 style={{color: '#005E21',fontWeight: 'bolder', textAlign: 'center'}}>{message}</h3>
                 </Modal.Body>
             </Modal>
         </>

@@ -47,6 +47,7 @@
 .main-item-card {
     width: 100%;
     display: flex;
+    justify-content: space-between;
     /* flex-wrap: wrap; */
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.281);
     padding: 10px;
@@ -54,7 +55,6 @@
     margin-bottom: 10px;
     transition: scale 0.2s;
     background-color: white;
-    justify-content: space-between;
 }
 .main-item-card:hover {
     scale: 1.01;
