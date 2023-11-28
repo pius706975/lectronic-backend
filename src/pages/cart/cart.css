@@ -87,7 +87,7 @@
 
 .right-item-card {
     display: flex;
-    justify-content: space-around;   
+    justify-content: space-between;   
 }
 
 .input-qty {
@@ -130,4 +130,12 @@
     background-color: #020085;
     align-items: center;
     width: 100%;
+    transition: color 0.2s, background-color 0.2s;
+    border: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.281);
+    font-weight: bold;
+}
+.cart-checkout-btn:hover {
+    color: #020085;
+    background-color: white;
 }

@@ -7,6 +7,8 @@ import { Button, Form, FormControl, Image, InputGroup } from "react-bootstrap"
 import { BsSearch } from "react-icons/bs"
 import formatCurrency from "../../helpers/format.currency"
 import { RiDeleteBin6Line } from "react-icons/ri"
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 function Cart() {
     const api = Api()
@@ -77,9 +79,61 @@ function Cart() {
 
     useEffect(()=>{
         document.title = 'Cart'
+        Aos.init()
     }, [])
 
     const displayItems = query ? searchResults : cartItem
+
+    const [selectAll, setSelectAll] = useState(false)
+
+    const handleCheckbox = (index)=>{
+        const updatedItem = [...displayItems]
+        updatedItem[index].selected = !updatedItem[index].selected
+        setCartItem(updatedItem)
+
+        const allSelected = updatedItem.every((item)=>item.selected)
+        setSelectAll(allSelected)
+    }
+
+    const handleSelectAll = ()=>{
+        setSelectAll(!selectAll)
+
+        const updatedItem = displayItems.map((data)=>({
+            ...data,
+            selected: !selectAll
+        }))
+
+        setCartItem(updatedItem)
+    }
+
+    const getItemPrice = ()=>{
+        return displayItems.reduce((total, item)=>{
+            if (item.selected || selectAll) {
+                return total + item.product_data.price
+            }
+            return total
+        }, 0)
+    }
+
+    const getTotalItems = ()=>{
+        const totalItems =  displayItems.reduce((total, item)=>{
+            if (item.selected || selectAll) {
+                return total + item.qty
+            }
+            return total
+        }, 0)
+
+        return totalItems === 1 ? `${totalItems} item` : `${totalItems} items`
+    }
+
+    const getBill = ()=>{
+        return displayItems.reduce((total, item)=>{
+            if (item.selected || selectAll) {
+                return total + item.product_data.price * item.qty
+            }
+            return total
+        }, 0)
+    }
 
     return (
         <div className="cart-app">
@@ -120,18 +174,18 @@ function Cart() {
 
                         <p>&nbsp;</p>
 
-                        <Form.Check style={{fontSize: '30px', fontWeight: 'bolder'}} inline label="Select All"/>
+                        <Form.Check style={{fontSize: '30px', fontWeight: 'bolder'}} inline label="Select All" checked={selectAll} onChange={handleSelectAll}/>
                     </div>
 
                     <div className="items">
                         <div className="left-item">
                             <div>
                                 {
-                                    displayItems.map((data)=>{
+                                    displayItems.map((data, index)=>{
                                         return(
-                                            <div className="main-item-card">
+                                            <div className="main-item-card" key={index}>
                                                 <div style={{margin: 'auto'}}>
-                                                    <Form.Check style={{fontSize: '20px', fontWeight: 'bolder'}} inline/>
+                                                    <Form.Check style={{fontSize: '20px', fontWeight: 'bolder'}} inline checked={selectAll || data.selected} onChange={()=>handleCheckbox(index)}/>
                                                 </div>
                                                 
                                                 <div className="left-item-card">
@@ -183,13 +237,13 @@ function Cart() {
                                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                         <p className="text-dark">Item price</p>
                                         <p>&nbsp;</p>
-                                        <p>{formatCurrency(cartItem)}</p>
+                                        <p>{formatCurrency(getItemPrice())}</p>
                                     </div>
 
                                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                        <p className="text-dark">Discount</p>
+                                        <p className="text-dark">Total items</p>
                                         <p>&nbsp;</p>
-                                        <p>{formatCurrency(cartItem)}</p>
+                                        <p>{getTotalItems()}</p>
                                     </div>
 
                                     <p style={{borderBottom: '1px solid black', width: '100%'}}></p>
@@ -197,7 +251,7 @@ function Cart() {
                                     <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', fontWeight: 'bold'}}>
                                         <p className="text-dark">Bill</p>
                                         <p>&nbsp;</p>
-                                        <p className="text-dark">{formatCurrency(cartItem)}</p>
+                                        <p className="text-dark">{formatCurrency(getBill())}</p>
                                     </div>
 
                                     <div>
