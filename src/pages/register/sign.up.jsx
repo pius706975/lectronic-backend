@@ -54,10 +54,6 @@ function Register() {
             }).then((res)=>{
                 const data = res.data
                 dispatch(addUsers(data))
-                setAlertMessage('Email verification has been sent to your email')
-                setTimeout(() => {
-                    setShowAlert(false)
-                }, 1000)
                 navigate('/resend-verification')
             }).catch((error)=>{
                 if (error.response && error.response.data) {
@@ -69,6 +65,12 @@ function Register() {
                     console.log('An error occurred: ', error.message)
                 }
             })
+
+            setShowAlert(true)
+            setAlertMessage('Email verification has been sent to your email')
+            setTimeout(() => {
+                setShowAlert(false)
+            }, 1000)
         } catch (error) {
             console.log('An error occurred: ', error.message)
         }
