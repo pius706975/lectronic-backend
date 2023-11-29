@@ -7,6 +7,7 @@ import UserProfile from "./pages/profile/profile"
 import Product from "./pages/product/product"
 import ProductDetail from "./pages/product/product.detail"
 import Cart from "./pages/cart/cart"
+import ResendVerification from "./pages/register/resend-verification/resend"
 
 function TheRouter() {
     return (
@@ -21,7 +22,7 @@ function TheRouter() {
                 <Route path="/product" element={<Product/>} />
                 <Route path="/product/detail/:id" element={<ProductDetail/>} />
                 <Route path="/cart" element={<Cart/>} />
-                
+                <Route path="/resend-verification/:email" element={<ResendVerification/>} />               
 
             </Routes>
 

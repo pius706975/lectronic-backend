@@ -1,0 +1,44 @@
+.resend-app {
+    text-align: center;
+    margin-top: 20%;
+    padding: 10px;
+}
+
+.resend-app button {
+    max-width: 300px;
+    width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    border: none;
+}
+
+.resend-app .resend {
+    background-color: blue;
+    color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.212);
+    transition: color 0.2s, background-color 0.2s;
+}
+.resend-app .resend:hover {
+    background-color: white;
+    color: blue;
+}
+.resend-app .resend:active {
+    background-color: rgb(48, 48, 255);
+    color: white;
+}
+
+.resend-app .leave {
+    background-color: white;
+    color: blue;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.212);
+    transition: color 0.2s, background-color 0.2s;
+}
+.resend-app .leave:hover {
+    background-color: blue;
+    color: white;
+}
+.resend-app .leave:active {
+    background-color: rgb(201, 201, 201);
+    color: rgb(48, 48, 255);
+}
