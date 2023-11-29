@@ -3,10 +3,13 @@ import './product.css'
 import { useParams } from "react-router-dom"
 import Api from "../../helpers/api"
 import NavbarCom3 from "../../components/navbar/navbar3"
-import {BsCart, BsPencil, BsStar} from 'react-icons/bs'
+import {BsCart, BsStar} from 'react-icons/bs'
 import currency from '../../helpers/format.currency'
-import { Button, Col, Nav, Row, Tab } from "react-bootstrap"
+import { Button, Nav, Row, Tab } from "react-bootstrap"
 import Rate from "../../components/rate/rate"
+import Aos from "aos"
+import 'aos/dist/aos.css'
+import CustomAlert from "../../components/alerts/custom-alert"
 
 function ProductDetail() {
     
@@ -15,6 +18,8 @@ function ProductDetail() {
     const params = useParams()
     const api = Api()
     const [qty, setQty] = useState(0)
+    const [showAlert, setShowAlert] = useState(false)
+    const [alertMessage, setAlertMessage] = useState('')
 
     const getProduct = ()=>{
         api.requests({
@@ -23,7 +28,7 @@ function ProductDetail() {
         }).then((res)=>{
             const data = res.data.result[0]
             setProduct(data)
-            console.log(data)
+            // console.log(data)
         }).catch((err)=>{
             console.log(err)
         })
@@ -34,7 +39,6 @@ function ProductDetail() {
             setQty(prevCount => prevCount - 1)
             setTotal( prevTotal => prevTotal - product.price)
         }
-
     }
 
     const handleIncrement = ()=>{
@@ -44,8 +48,56 @@ function ProductDetail() {
         }
     }
 
+    const addToCart = async (productId, qty, status) => {
+        try {
+            const response = await api.requests({
+                method: 'POST',
+                url: '/cart',
+                data: {
+                    product_id: productId,
+                    qty: qty,
+                    status: status,
+                },
+          })
+          
+          return response.data
+        } catch (error) {
+          console.error('Error adding to cart:', error)
+          throw error
+        }
+    }
+
+    const handleAddToCart = async () => {
+        try {
+            const productId = params.id
+            const status = 'Ready to pay'
+            if (qty === 0) {
+                setShowAlert(true)
+                setAlertMessage('Minimum item is 1')
+                setTimeout(() => {
+                    setShowAlert(false)
+                }, 1500)
+            } else {
+                setShowAlert(true)
+                setAlertMessage(`${product.name} added to cart`)
+                setTimeout(() => {
+                    setShowAlert(false)
+                }, 1500)
+
+                await addToCart(productId, qty, status)
+            }
+            // console.log('Item added to cart:', result)
+        } catch (error) {
+            console.error('Error adding to cart:', error)
+        }
+    }
+
     useEffect(()=>{
         getProduct()
+    }, [])
+
+    useEffect(()=>{
+        Aos.init()
     }, [])
 
     return(
@@ -55,11 +107,11 @@ function ProductDetail() {
             <div className="product-detail">
                 <div className="details">
                     <div className="left-detail">
-                        <div className="big-img">
-                            <img src={product.image} alt="Product image" />
+                        <div data-aos='zoom-in' data-aos-duration='600' data-aos-offset='100' className="big-img">
+                            <img src={product.image} alt="Product_image" />
                         </div>
 
-                        <div className="details-menu">
+                        <div data-aos='zoom-in' data-aos-duration='600' data-aos-offset='100'  className="details-menu">
                             <h5 className="text-center" style={{fontWeight: 'bolder'}}>Details</h5>
 
                             <div className="row" style={{padding: '0px 10px 0 10px', fontWeight: 'bold', marginBottom: '10px'}}>
@@ -80,17 +132,13 @@ function ProductDetail() {
                                 </div>
                             </div>
 
-                            <div>
-                                <p style={{fontSize: '13px', fontWeight: 'bold', color: '#6160cc', cursor: 'pointer'}}><BsPencil/> Add notes</p>
-                            </div>
-
                             <div className="row" style={{padding: '0px 10px 0 10px', fontWeight: 'bold', marginBottom: '10px'}}>
                                 <div className="col-6" style={{margin: 'auto'}}>
                                     <p style={{fontSize: '10px', fontWeight: 'bold', color: '#777777'}}>Sub-Total</p>
                                 </div>
 
-                                <div className="col-6" style={{fontSize: '20px', textAlign: 'right'}}>
-                                    <p>{currency(total)}</p>
+                                <div className="col-6" style={{textAlign: 'right'}}>
+                                    <p style={{fontSize: '15px'}}>{currency(total)}</p>
                                 </div>
                             </div>
 
@@ -100,14 +148,20 @@ function ProductDetail() {
                                 </div>
 
                                 <div className="col-6" style={{fontSize: '20px', textAlign: 'right'}}>
-                                    <Button className="detail-cart-btn"><BsCart/></Button>
+                                    <Button className="detail-cart-btn" onClick={handleAddToCart}><BsCart/></Button>
                                 </div>
+
+                                <CustomAlert
+                                    show={showAlert}
+                                    onClose={()=>setShowAlert(false)}
+                                    message={alertMessage}
+                                />
                             </div>
                         </div>
                     </div>
 
                     <div className="box">
-                        <div className="row">
+                        <div className="row" data-aos='fade-right' data-aos-duration='600' data-aos-offset='100'>
                             <h1>{product.name}</h1>
 
                             <p style={{fontSize: '15px', fontWeight: 'bold'}}>
@@ -157,7 +211,6 @@ function ProductDetail() {
                                     </>
                                 </Row>
                             </Tab.Container>
-                            
                         </div>
                     </div>
                 </div>

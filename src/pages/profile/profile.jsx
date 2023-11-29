@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import './profile.css'
 import {Button, Form, Image, Modal} from "react-bootstrap"
 import backLogo from '../../images/back.png'
@@ -7,11 +7,13 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import {BsGenderMale, BsGenderFemale} from 'react-icons/bs'
 import CustomAlert from "../../components/alerts/custom-alert"
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 function UserProfile() {
 
     const [errorMessage, setErrorMessage] = useState('')
-    const [errorTimer, setErrorTimer] = useState(null)
+    const [setErrorTimer] = useState(null)
     const clearErrorMessage = ()=>{
         setErrorMessage('')
         setErrorMessage(null)
@@ -19,11 +21,11 @@ function UserProfile() {
 
     const [showAlert, setShowAlert] = useState(false)
     const [alertMsg, setAlertMsg] = useState('')
-    const progressRef = useRef(null)
-    const [uploadProgress, setUploadProgress] = useState(0)
+    // const progressRef = useRef(null)
+    // const [uploadProgress, setUploadProgress] = useState(0)
 
     const api = Api()
-    const [user, setUser] = useState('')
+    // const [user, setUser] = useState('')
     const {isAuth} = useSelector((state)=>state.users)
     const navigate = useNavigate()
 
@@ -38,7 +40,7 @@ function UserProfile() {
     const [gender, setGender] = useState('')
     const [password, setPassword] = useState('')
 
-    const [imageData, setImageData] = useState([])
+    // const [imageData, setImageData] = useState([])
 
     const [data1, setData1] = useState('')
     const [data2, setData2] = useState('')
@@ -143,7 +145,6 @@ function UserProfile() {
                 image: image
             }
         }).then((res)=>{
-            setUploadProgress(0)
             setAlertMsg('Profile image changed successfully')
             setShowAlert(true)
         }).catch((err)=>{
@@ -175,15 +176,16 @@ function UserProfile() {
     useEffect(()=>{
         if (showAlert) {
             const timer = setTimeout(() => {
-                window.location.reload(navigate('/profile'))
+                setShowAlert(false)
+                getUser()
             }, 1000);
 
-            return ()=>clearTimeout(timer)
+            return ()=> clearTimeout(timer)
         }
     }, [showAlert])
 
     const handleHistory = ()=>{
-        navigate('/')
+        navigate(-1)
     }
    
     // password modal
@@ -212,17 +214,22 @@ function UserProfile() {
         setImgModal(false)
     }
 
+    useEffect(()=>{
+        Aos.init()
+    }, [])
+
     return (
         <div className="profile-app">
             {isAuth ? (
                 <div className="user-profile">
-                    <div>
+                    <div data-aos='fade-right' data-aos-duration='600' data-aos-offset='100'>
                         <Button onClick={handleHistory} className="back-btn">
                             <Image src={backLogo} width={'30px'}/>
                         </Button>
                     </div>
+
                     <div className="profile-data">
-                        <div onClick={showImgModal} className="profile-pic">
+                        <div data-aos='zoom-out' data-aos-duration='600' data-aos-offset='100' onClick={showImgModal} className="profile-pic">
                             <div>
                                 <Image className="img" src={data1} alt="..."/>
                             </div>
@@ -250,7 +257,7 @@ function UserProfile() {
 
                         <div className="box">
                             <CustomAlert show={showAlert} setShow={setShowAlert} message={alertMsg}/>
-                            <div className="row">
+                            <div data-aos='fade-right' data-aos-duration='600' data-aos-offset='100' className="row">
                                 <h1 style={{fontWeight: 'bolder', textAlign: 'justify'}}>Edit your personal bio</h1>
                                 <p style={{fontSize: '15px', textAlign: 'justify'}}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p>
 

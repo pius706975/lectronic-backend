@@ -10,6 +10,8 @@ import Pagination from "../../components/pagination/pagination"
 import { BsCart, BsSearch } from "react-icons/bs"
 import { BiFilterAlt } from "react-icons/bi"
 import { useNavigate } from "react-router-dom"
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 function Product() {
 
@@ -111,15 +113,16 @@ function Product() {
 
     useEffect(()=>{
         document.title = 'Products'
+        Aos.init()
     }, [])
 
     const displayProducts = query ? searchResults : filteredProducts
 
     return (
-        <div className="product-app">
+        <div data-aos='fade-down' data-aos-duration='600' data-aos-offset='100' className="product-app">
             <NavbarCom2/>
             
-            <div className="search" style={{margin: '0px auto',     background: 'linear-gradient(to bottom, #f2f4fb 0%, #f2f4fb 50%, #ffffff00 50%, #ffffff00 100%)'}}>
+            <div className="search" style={{margin: '0px auto', background: 'linear-gradient(to bottom, #f2f4fb 0%, #f2f4fb 50%, #ffffff00 50%, #ffffff00 100%)'}}>
                 <div style={{borderRadius: "20px", maxWidth: '1100px', margin: 'auto', display: 'flex'}}>
                     <InputGroup>
                         <FormControl 
@@ -135,8 +138,8 @@ function Product() {
                             }}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
-                                    e.preventDefault();
-                                    setKeyword(query);
+                                    e.preventDefault()
+                                    setKeyword(query)
                                 }
                             }}
                         />
@@ -145,7 +148,7 @@ function Product() {
                     </InputGroup>
 
                     <Button style={{visibility: 'hidden'}}></Button>
-
+                    
                     <Button onClick={toCartPage} className="additional-product-btn">
                         <BsCart/>
                     </Button>

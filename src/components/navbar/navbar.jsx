@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import './navbar.css'
 import { Button, Dropdown, Image, Nav, Navbar } from "react-bootstrap"
-import { Link } from "react-router-dom"
 import BrandLogo from '../../images/logoHeader.png'
 import toggleImage from '../../images/Logo.png'
 import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse"
@@ -42,7 +41,7 @@ function NavbarCom() {
 
             <Navbar expand="lg" className="navbar" style={{maxWidth: '1350px', margin: 'auto'}}>
                 
-                <Navbar.Brand className="nav-brand" as={Link} to="/" >
+                <Navbar.Brand className="nav-brand" href="#home" >
                     <img src={BrandLogo} alt="Brand" width="150" height="auto" />
                 </Navbar.Brand>
 

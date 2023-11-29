@@ -1,5 +1,5 @@
 import React from "react"
-import {BsCart, BsStar} from 'react-icons/bs'
+import {BsStar} from 'react-icons/bs'
 import { Card, Button } from "react-bootstrap"
 import './card.css'
 import { useNavigate } from "react-router-dom"
@@ -12,12 +12,6 @@ function CardDetail(props) {
     const detail = ()=>{
         navigate(`/product/detail/${props.id}`)
     }
-
-    const addToCart = ()=>{
-        navigate(`/cart/${props.id}`)
-    }
-
-    // console.log(props)
     
     return (
         <div className="detail">
@@ -39,9 +33,7 @@ function CardDetail(props) {
                 <Card.Img style={{margin: 'auto', width: '50%', borderRadius: '10px'}} variant="top" src={props.image} />
 
                 <div className="row" style={{padding: '0px 10px 0 10px'}}>
-                    <Button className="detail-btn" style={{color: 'white', fontSize: '15px', fontWeight: '600', width: '122px', backgroundColor: '#0300ad', border: '1px solid #0300ad', borderRadius: '10px'}} onClick={detail}>Detail</Button>
-
-                    <Button className="cart-btn" style={{width: '40px', borderRadius: '10px', border: '1px solid #0300ad', backgroundColor: 'white', color: '#0300ad', marginLeft: 'auto'}} onClick={addToCart}><BsCart/></Button>
+                    <Button className="detail-btn" style={{color: 'white', fontSize: '15px', fontWeight: '600', backgroundColor: '#0300ad', border: '1px solid #0300ad', borderRadius: '10px'}} onClick={detail}>Detail</Button>
                 </div>
 
             </Card>

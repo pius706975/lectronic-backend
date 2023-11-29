@@ -48,4 +48,14 @@
 
 .copyright {
     background: linear-gradient(#ebf2f4, #cfe7ff);
+    color: black;
+}
+
+.my-link {
+    color: black;
+    transition: color 0.2s;
+}
+
+.my-link:hover {
+    color: blue;
 }

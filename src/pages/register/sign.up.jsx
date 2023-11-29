@@ -5,18 +5,21 @@ import './sign.up.css'
 import {useNavigate} from 'react-router-dom'
 import backLogo from '../../images/back.png'
 import {Image} from 'react-bootstrap'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import Api from "../../helpers/api"
 import { addUsers } from "../../store/reducer/user"
 import image from './image-9.png'
 import logo from '../../images/Logo.png'
+import Aos from "aos"
+import 'aos/dist/aos.css'
+import CustomAlert from "../../components/alerts/custom-alert"
 
 function Register() {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const api = Api()
-    const {isAuth} = useSelector((state)=>state.users)
+    // const {isAuth} = useSelector((state)=>state.users)
     const [users, setUsers] = useState({
         name: '',
         email: '',
@@ -24,6 +27,8 @@ function Register() {
         role: 'user'
     })
 
+    const [showAlert, setShowAlert] = useState(false)
+    const [alertMessage, setAlertMessage] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const [errorTimer, setErrorTimer] = useState(null)
     const clearErrorMessage = ()=>{
@@ -49,8 +54,11 @@ function Register() {
             }).then((res)=>{
                 const data = res.data
                 dispatch(addUsers(data))
-                alert('We have sent you a verification step to your email')
-                navigate('/')
+                setAlertMessage('Email verification has been sent to your email')
+                setTimeout(() => {
+                    setShowAlert(false)
+                }, 1000)
+                navigate('/resend-verification')
             }).catch((error)=>{
                 if (error.response && error.response.data) {
                     const errorMessage = error.response.data.result[0].message
@@ -67,6 +75,7 @@ function Register() {
     }
 
     useEffect(()=>{
+        Aos.init()
         document.title = 'Sign Up'
     }, [])
 
@@ -93,10 +102,13 @@ function Register() {
             <div className="register-container">
                 <div className="register-content">
                     <div className="register-left-side">
+                        <div data-aos='zoom-in-right' data-aos-duration='600' data-aos-offset='100'>
                             <button className="log-arrow-back" onClick={handleHistory}>
                                 <Image src={backLogo}/>
                             </button>
-                        <form className="register-form">           
+                        </div>
+
+                        <form data-aos='fade-right' data-aos-duration='600' data-aos-offset='100' className="register-form">           
                             <h1 className="text-left mb-5">Welcome, Please<br/>Create an Account</h1>
                             <p>Please fill in your name, email, and password</p>
                 
@@ -117,11 +129,17 @@ function Register() {
                             </div>
 
                             <button type="submit" className="reg-button-REG" onClick={register}>Register</button>
+
+                            <CustomAlert
+                                show={showAlert}
+                                onClose={()=>setShowAlert(false)}
+                                message={alertMessage}
+                            />
                         </form>
                     </div>
 
                     <div className="box">
-                        <div className="row">
+                        <div data-aos='fade-left' data-aos-duration='600' data-aos-offset='100' className="row">
                             {!isMobile && (
                                 <div className="right-bg">
                                     <Image src={image} className="right-img"/>

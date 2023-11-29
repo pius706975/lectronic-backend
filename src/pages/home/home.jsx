@@ -11,6 +11,8 @@ import {PiShoppingBag} from 'react-icons/pi'
 import {FaMoneyBillWave} from 'react-icons/fa'
 import Api from "../../helpers/api"
 import CardHome from "../../components/card/card.home"
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 function Home() {
 
@@ -99,6 +101,11 @@ function Home() {
         e.preventDefault()
         setKeyword(query)
     }
+
+    useEffect(()=>{
+        Aos.init()
+    }, [])
+
     
     useEffect(()=>{
         document.title = 'Home'
@@ -111,24 +118,30 @@ function Home() {
             <NavbarCom/>
 
             {/* Section 1 */}
-            <div className="home-banner d-flex">
+            <div id="home" className="home-banner d-flex">
                 <div className="home-banner-container">
                     <div className="home-banner-content">
                         <div className="home-banner-left-side">
-                            <h1 className="banner-title" style={{fontSize: "50px", fontWeight: "bolder"}}>Take Your Time And <span style={{color: "#0020b2"}}>Shop</span> Anywhere</h1>
+                            <h1 data-aos='fade-right' data-aos-duration='600' data-aos-offset='100' className="banner-title" style={{fontSize: "50px", fontWeight: "bolder"}}>Take Your Time And <span style={{color: "#0020b2"}}>Shop</span> Anywhere</h1>
 
-                            <p className="banner-paragraph">Find stuff what you want easily</p>
+                            <p data-aos='fade-right' data-aos-duration='800' data-aos-offset='100' className="banner-paragraph">Find stuff what you want easily</p>
 
                             <div className="banner-btn d-flex">
-                                <Button href="#our-products" className="banner-shop-btn"><BsBag/> Shop now</Button>
+                                <div style={{padding: '0'}} data-aos='fade-down' data-aos-duration='600' data-aos-offset='100'>
+                                    <Button href="#our-products" className="banner-shop-btn"><BsBag/> Shop now</Button>
+                                </div>
+
                                 <Button style={{visibility: "hidden"}}></Button>
-                                <Button className="banner-offer-btn"><BsHandbag/> Be a seller</Button>
+                                
+                                <div data-aos='fade-down' data-aos-duration='600' data-aos-offset='100' style={{padding: '0'}}>
+                                    <Button className="banner-offer-btn"><BsHandbag/> Be a seller</Button>
+                                </div>
                             </div>
                         </div>
 
                         <div className="box">
                             <div className="row">
-                                <Image className="home-img" src={img} />
+                                <Image data-aos='zoom-in' data-aos-duration='600' data-aos-offset='100' className="home-img" src={img} />
                             </div>
                         </div>
                     </div>
@@ -137,13 +150,13 @@ function Home() {
 
             {/* Section 2 */}
             <div id="howitworks" className="home-second-container" style={{marginTop: "120px"}}>
-                <div style={{backgroundColor: "#f2f4fb", width: "150px", margin: "auto", borderRadius: "20px"}}>
+                <div data-aos='zoom-in-down' data-aos-duration='600' data-aos-offset='100' style={{backgroundColor: "#f2f4fb", width: "150px", margin: "auto", borderRadius: "20px"}}>
                     <p style={{color: "#0020b2", textAlign: "center", padding: "10px"}}>How it works</p>
                 </div>
 
                 <p></p>
 
-                <div style={{width: "300px", margin: "auto", borderRadius: "20px"}}>
+                <div data-aos='zoom-in' data-aos-duration='600' data-aos-offset='100' style={{width: "300px", margin: "auto", borderRadius: "20px"}}>
                     <h1 style={{fontWeight: "bold", textAlign: "center", padding: "10px"}}>Make An Order Easily</h1>
                 </div>
 
@@ -152,21 +165,21 @@ function Home() {
                         <div style={{maxWidth: "1700px", width: "100%", margin: "50px auto", padding: "10px"}}>
                             
                             <div style={{display: "flex", justifyContent: "space-around", flexWrap: "wrap", padding: "30px 0"}}>
-                                <div className="steps" style={{marginBottom: "15px", maxWidth: "250px", border: "solid 1px #0020b2", borderRadius: "10px", textAlign: "justify", padding: "25px"}}>
+                                <div data-aos='zoom-in-down' data-aos-duration='600' data-aos-offset='100' className="steps" style={{marginBottom: "15px", maxWidth: "250px", border: "solid 1px #0020b2", borderRadius: "10px", textAlign: "justify", padding: "25px"}}>
                                     <p className="icon" style={{margin: "auto", padding: "10px", backgroundColor: "#f1f1f1", width: "50px", borderRadius: "100%", textAlign: "center"}}><PiShoppingBag/></p>
                                     <p></p>
                                     <h5 style={{fontWeight: "bold"}}>Select Products</h5>
                                     <p style={{fontSize: "15px"}}>Select one or more products that you want and you have 2 choices to buy directly or save products into cart.</p> 
                                 </div>
 
-                                <div className="steps" style={{marginBottom: "15px", maxWidth: "250px", border: "solid 1px #0020b2", borderRadius: "10px", textAlign: "justify", padding: "25px"}}>
+                                <div data-aos='zoom-in-down' data-aos-duration='600' data-aos-offset='100' className="steps" style={{marginBottom: "15px", maxWidth: "250px", border: "solid 1px #0020b2", borderRadius: "10px", textAlign: "justify", padding: "25px"}}>
                                     <p className="icon" style={{margin: "auto", padding: "10px", backgroundColor: "#f1f1f1", width: "50px", borderRadius: "100%", textAlign: "center"}}><FaMoneyBillWave/></p>
                                     <p></p>
                                     <h5 style={{fontWeight: "bold"}}>Make Payment</h5>
                                     <p style={{fontSize: "15px"}}>Select payment method after considering what product do you want to get.</p>
                                 </div>
 
-                                <div className="steps" style={{marginBottom: "15px", maxWidth: "250px", border: "solid 1px #0020b2", borderRadius: "10px", textAlign: "justify", padding: "25px"}}>
+                                <div data-aos='zoom-in-down' data-aos-duration='600' data-aos-offset='100' className="steps" style={{marginBottom: "15px", maxWidth: "250px", border: "solid 1px #0020b2", borderRadius: "10px", textAlign: "justify", padding: "25px"}}>
                                     <p className="icon" style={{margin: "auto", padding: "10px", backgroundColor: "#f1f1f1", width: "50px", borderRadius: "100%", textAlign: "center"}}><BsBox/></p>
                                     <p></p>
                                     <h5 style={{fontWeight: "bold"}}>Receive Products</h5>
@@ -180,13 +193,13 @@ function Home() {
             
             {/* Section 3 */}
             <div id="our-products" className="home-third-container" style={{marginTop: "30px", marginBottom: '100px'}}>
-                <div style={{backgroundColor: "#f2f4fb", width: "150px", margin: "auto", borderRadius: "20px"}}>
+                <div data-aos='zoom-in-down' data-aos-duration='600' data-aos-offset='100' style={{backgroundColor: "#f2f4fb", width: "150px", margin: "auto", borderRadius: "20px"}}>
                     <p style={{color: "#0020b2", textAlign: "center", padding: "10px"}}>Our Products</p>
                 </div>
 
                 <p></p>
 
-                <div style={{width: "300px", margin: "auto", borderRadius: "20px"}}>
+                <div data-aos='zoom-in' data-aos-duration='600' data-aos-offset='100' style={{width: "300px", margin: "auto", borderRadius: "20px"}}>
                     <h3 style={{fontWeight: "bolder", textAlign: "center", padding: "10px"}}>The Best Product By Lectronic</h3>
                 </div>
 
@@ -194,7 +207,7 @@ function Home() {
                     <div className="d-flex">
                         <div style={{maxWidth: "1700px", width: "100%", margin: "auto"}}>
                             
-                            <div style={{maxWidth: '1400px', margin:'auto', display: "flex", justifyContent: "space-around", flexWrap: "wrap", padding: "30px 0"}}>
+                            <div data-aos='zoom-in-right' data-aos-duration='600' data-aos-offset='100' style={{maxWidth: '1400px', margin:'auto', display: "flex", justifyContent: "space-around", flexWrap: "wrap", padding: "30px 0"}}>
                                 {
                                     categories.map((data)=>{
                                         return (
@@ -243,25 +256,29 @@ function Home() {
 
                             <p></p>
 
-                            <div className="filtered-category-list" style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', justifyItems: 'left', maxWidth: '1100px', margin: 'auto', marginBottom: '50px'}}>
-                                {
-                                    displayProducts.map((data)=>{
-                                        return (
-                                            <div key={data.product_id}>
-                                                <CardHome
-                                                    id={data.product_id}
-                                                    price={data.price}
-                                                    image={data.image} 
-                                                    name={data.name}
-                                                />
-                                            </div>
-                                        )
-                                    })
-                                }
+                            <div data-aos='zoom-in' data-aos-duration='600' data-aos-offset='100'>
+                                <div className="filtered-category-list" style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', justifyItems: 'left', maxWidth: '1100px', margin: 'auto', marginBottom: '50px'}}>
+                                    {
+                                        displayProducts.map((data)=>{
+                                            return (
+                                                <div key={data.product_id}>
+                                                    <CardHome
+                                                        id={data.product_id}
+                                                        price={data.price}
+                                                        image={data.image} 
+                                                        name={data.name}
+                                                    />
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
 
-                            <div className="text-center">
-                                <Button href="/product" className="view-all-btn" style={{border: '1px solid 0020b2', borderRadius: '10px', fontWeight: '800'}}>View All</Button>
+                            <div data-aos='zoom-in' data-aos-duration='600' data-aos-offset='100'>
+                                <div className="text-center">
+                                    <Button href="/product" className="view-all-btn" style={{border: '1px solid 0020b2', borderRadius: '10px', fontWeight: '800'}}>View All</Button>
+                                </div>
                             </div>
                         </div>
                     </div>
