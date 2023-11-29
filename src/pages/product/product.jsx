@@ -28,9 +28,9 @@ function Product() {
     const [query, setQuery] = useState('')
 
     const [page, setPage] = useState(1)
-    const [limit] = useState(12)
+    const [limit, setLimit] = useState(12)
     const [pages, setPages] = useState(0)
-    const [setRows] = useState(0)
+    const [rows, setRows] = useState(0)
 
     const getCategories = async ()=>{
         api.requests({

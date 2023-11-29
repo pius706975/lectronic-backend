@@ -12,6 +12,7 @@ import image from './image-9.png'
 import logo from '../../images/Logo.png'
 import Aos from "aos"
 import 'aos/dist/aos.css'
+import CustomAlert from "../../components/alerts/custom-alert"
 
 function Register() {
 
@@ -26,8 +27,10 @@ function Register() {
         role: 'user'
     })
 
+    const [showAlert, setShowAlert] = useState(false)
+    const [alertMessage, setAlertMessage] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
-    const [setErrorTimer] = useState(null)
+    const [errorTimer, setErrorTimer] = useState(null)
     const clearErrorMessage = ()=>{
         setErrorMessage('')
         setErrorTimer(null)
@@ -51,8 +54,11 @@ function Register() {
             }).then((res)=>{
                 const data = res.data
                 dispatch(addUsers(data))
-                alert('We have sent you a verification step to your email')
-                navigate('/')
+                setAlertMessage('Email verification has been sent to your email')
+                setTimeout(() => {
+                    setShowAlert(false)
+                }, 1000)
+                navigate('/resend-verification')
             }).catch((error)=>{
                 if (error.response && error.response.data) {
                     const errorMessage = error.response.data.result[0].message
@@ -69,6 +75,7 @@ function Register() {
     }
 
     useEffect(()=>{
+        Aos.init()
         document.title = 'Sign Up'
     }, [])
 
@@ -88,10 +95,6 @@ function Register() {
         window.addEventListener('resize', handleResize)
 
         return ()=> window.removeEventListener('resize', handleResize)
-    }, [])
-
-    useEffect(()=>{
-        Aos.init()
     }, [])
 
     return (
@@ -126,6 +129,12 @@ function Register() {
                             </div>
 
                             <button type="submit" className="reg-button-REG" onClick={register}>Register</button>
+
+                            <CustomAlert
+                                show={showAlert}
+                                onClose={()=>setShowAlert(false)}
+                                message={alertMessage}
+                            />
                         </form>
                     </div>
 

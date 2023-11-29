@@ -26,9 +26,9 @@ function Home() {
     const [query, setQuery] = useState('')
 
     const [page, setPage] = useState(1)
-    const [limit] = useState(4)
-    const [setPages] = useState(0)
-    const [setRows] = useState(0)
+    const [limit, setLimit] = useState(4)
+    const [pages, setPages] = useState(0)
+    const [rows, setRows] = useState(0)
     
 
     const getCategories = async ()=>{

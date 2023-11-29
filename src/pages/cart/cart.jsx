@@ -177,12 +177,12 @@ function Cart() {
     }
 
     return (
-        <div className="cart-app">
+        <div className="cart-app" data-aos='fade-down' data-aos-duration='600' data-aos-offset='100'>
             <NavbarCom2/>
 
             {isAuth ? (
                 <div className="cart">
-                    <div className="search" style={{margin: '0px auto', background: 'linear-gradient(to bottom, #f2f4fb 0%, #f2f4fb 50%, #ffffff00 50%, #ffffff00 100%)'}}>
+                    <div className="search" style={{margin: '0px auto', background: 'linear-gradient(to bottom, #f2f4fb 0%, #f2f4fb 50%, #ffffff00 50%, #ffffff00 100%)'}} data-aos='fade-down' data-aos-duration='600' data-aos-offset='100'>
                         <div style={{borderRadius: "20px", maxWidth: '1100px', margin: 'auto', display: 'flex'}}>
                             <InputGroup>
                                 <FormControl 
@@ -208,7 +208,7 @@ function Cart() {
                         </div>
                     </div>
 
-                    <div className="item-list">
+                    <div className="item-list" data-aos='fade-right' data-aos-duration='600' data-aos-offset='100'>
                         <p></p>
 
                         <h1>Cart</h1>
@@ -220,7 +220,7 @@ function Cart() {
 
                     <div className="items">
                         <div className="left-item">
-                            <div>
+                            <div data-aos='zoom-in-right' data-aos-duration='600' data-aos-offset='100'>
                                 {
                                     displayItems.map((data, index)=>{
                                         return(
@@ -278,7 +278,7 @@ function Cart() {
 
                         <div className="box">
                             <div className="row">
-                                <div className="detail-price">
+                                <div className="detail-price" data-aos='zoom-in-down' data-aos-duration='600' data-aos-offset='100'>
                                     <h3 style={{fontWeight: 'bolder'}}>Total</h3>
 
                                     <div style={{display: 'flex', justifyContent: 'space-between'}}>

@@ -25,7 +25,7 @@ function Login() {
     })
 
     const [errorMessage, setErrorMessage] = useState('')
-    const [setErrorTimer] = useState(null)
+    const [errorTimer, setErrorTimer] = useState(null)
     
     const clearErrorMessage = ()=>{
         setErrorMessage('')
