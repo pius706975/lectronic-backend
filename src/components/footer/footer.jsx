@@ -88,7 +88,7 @@ function FooterCom() {
             </section>
 
             <div data-aos='zoom-in-up' data-aos-duration='600' data-aos-offset='0' className='text-center p-3 mt-3 copyright'>
-                <h5><a href="https://pius-restiantoro.netlify.app" style={{textDecoration: 'none', color: 'rgb(66, 66, 66)'}} target="blank">Pius Restiantoro</a> &copy; {currentYear} </h5>
+                <h5 className="fw-bold"><a className="my-link" href="https://pius-restiantoro.netlify.app" style={{textDecoration: 'none'}} target="blank">Pius Restiantoro</a> &copy; {currentYear} </h5>
             </div>
         </MDBFooter>
     )

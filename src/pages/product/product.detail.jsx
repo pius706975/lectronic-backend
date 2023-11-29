@@ -58,7 +58,6 @@ function ProductDetail() {
                     qty: qty,
                     status: status,
                 },
-          }).then(()=>{
           })
           
           return response.data
@@ -77,13 +76,13 @@ function ProductDetail() {
                 setAlertMessage('Minimum item is 1')
                 setTimeout(() => {
                     setShowAlert(false)
-                }, 2000)
+                }, 1500)
             } else {
                 setShowAlert(true)
                 setAlertMessage(`${product.name} added to cart`)
                 setTimeout(() => {
                     setShowAlert(false)
-                }, 2000)
+                }, 1500)
 
                 await addToCart(productId, qty, status)
             }

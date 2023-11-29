@@ -176,10 +176,11 @@ function UserProfile() {
     useEffect(()=>{
         if (showAlert) {
             const timer = setTimeout(() => {
-                window.location.reload(navigate('/profile'))
+                setShowAlert(false)
+                getUser()
             }, 1000);
 
-            return ()=>clearTimeout(timer)
+            return ()=> clearTimeout(timer)
         }
     }, [showAlert])
 

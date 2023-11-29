@@ -69,7 +69,29 @@ function Cart() {
             setAlertMessage('Item deleted')
             setTimeout(() => {
                 setShowAlert(false)
-            }, 2000)
+            }, 1000)
+            getAllItems()
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    const increaseQTY = (id)=>{
+        api.requests({
+            method: 'PUT',
+            url: `/cart/increase=${id}`
+        }).then((res)=>{
+            getAllItems()
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    const decreaseQTY = (id)=>{
+        api.requests({
+            method: 'PUT',
+            url: `/cart/decrease=${id}`
+        }).then((res)=>{
             getAllItems()
         }).catch((err)=>{
             console.log(err)
@@ -230,20 +252,20 @@ function Cart() {
                                                     <CustomAlert
                                                         show={showAlert}
                                                         onClose={()=>setShowAlert(false)}
-                                                        message="Item deleted"
+                                                        message={alertMessage}
                                                     />
 
                                                     <p>&nbsp;</p>
 
                                                     <div>
                                                         <div className="input-qty">
-                                                            <button type="button" className="input-group-qty"><span style={{color: '#0300ad', fontWeight: 'bolder'}}>-</span></button>
+                                                            <button type="button" className="input-group-qty"><span style={{color: '#0300ad', fontWeight: 'bolder'}} onClick={()=>decreaseQTY(data.cart_id)}>-</span></button>
 
                                                             <div className="form-control text-center" style={{border: 'none'}}>
                                                                 <span style={{fontWeight: 'bold'}}>{data.qty}</span>
                                                             </div>
 
-                                                            <button type="button" className="input-group-qty"><span style={{color: '#0300ad', fontWeight: 'bolder'}}>+</span></button>
+                                                            <button type="button" className="input-group-qty"><span style={{color: '#0300ad', fontWeight: 'bolder'}} onClick={()=>increaseQTY(data.cart_id)}>+</span></button>
                                                         </div>
                                                     </div>
                                                 </div>

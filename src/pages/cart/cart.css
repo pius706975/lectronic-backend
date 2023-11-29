@@ -132,8 +132,9 @@
     width: 100%;
     transition: color 0.2s, background-color 0.2s;
     border: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.281);
+    box-shadow: 0 0 5px #0300ad6b;
     font-weight: bold;
+    border-radius: 10px;
 }
 .cart-checkout-btn:hover {
     color: #020085;
