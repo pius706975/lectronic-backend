@@ -32,9 +32,17 @@ const userSlice = createSlice({
                 ...state,
                 data: actions.payload
             }
+        },
+
+        tokenExpired(state, actions) {
+            return {
+                ...state,
+                isAuth: false,
+                token: '',
+            };
         }
     }
 })
 
-export const { login, logout, addUsers } = userSlice.actions
+export const { login, logout, addUsers, tokenExpired } = userSlice.actions
 export default userSlice.reducer

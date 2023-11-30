@@ -1,9 +1,11 @@
 import { Navigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { tokenExpired } from '../store/reducer/user'
 
 const withAuth = (Component, role) => {
     return (props) => {
         const { isAuth, data } = useSelector((state) => state.users)
+        const dispatch = useDispatch()
 
         if (!isAuth) {
             return <Navigate to="/login" />
@@ -11,9 +13,15 @@ const withAuth = (Component, role) => {
 
         if (role && data.role !== role) {
             return <Navigate to="/" />
-      }
+        }
 
-         return <Component {...props} />
+        const { response } = useSelector((state) => state.api);
+        if (response && response.status === 500 && response.data && response.data.name === 'TokenExpiredError') {
+            dispatch(tokenExpired());
+            return <Navigate to="/login" />;
+        }
+
+        return <Component {...props} />
     }
 }
 
