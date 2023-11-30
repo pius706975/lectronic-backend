@@ -76,28 +76,6 @@ function Cart() {
         })
     }
 
-    const increaseQTY = (id)=>{
-        api.requests({
-            method: 'PUT',
-            url: `/cart/increase=${id}`
-        }).then((res)=>{
-            getAllItems()
-        }).catch((err)=>{
-            console.log(err)
-        })
-    }
-
-    const decreaseQTY = (id)=>{
-        api.requests({
-            method: 'PUT',
-            url: `/cart/decrease=${id}`
-        }).then((res)=>{
-            getAllItems()
-        }).catch((err)=>{
-            console.log(err)
-        })
-    }
-
     useEffect(()=>{
         if (isAuth) {
             getUser()
@@ -124,6 +102,48 @@ function Cart() {
     }, [])
 
     const displayItems = query ? searchResults : cartItem
+
+    const increaseQTY = (id)=>{
+        const getStocks = displayItems.find((data)=>data.cart_id === id)
+
+        if (getStocks.qty < getStocks.product_data.stock) {
+            api.requests({
+                method: 'PUT',
+                url: `/cart/increase=${id}`
+            }).then((res)=>{
+                getAllItems()
+            }).catch((err)=>{
+                console.log(err)
+            })
+        } else {
+            setShowAlert(true)
+            setAlertMessage('You add more than the stocks')
+            setTimeout(() => {
+                setShowAlert(false)
+            }, 1000)
+        }
+    }
+
+    const decreaseQTY = (id)=>{
+        const getStocks = displayItems.find((data)=>data.cart_id === id)
+        
+        if (getStocks.qty - 1 !== 0) {
+            api.requests({
+                method: 'PUT',
+                url: `/cart/decrease=${id}`
+            }).then((res)=>{
+                getAllItems()
+            }).catch((err)=>{
+                console.log(err)
+            })
+        } else {
+            setShowAlert(true)
+            setAlertMessage('Minimum item is 1')
+            setTimeout(() => {
+                setShowAlert(false)
+            }, 1000)
+        }
+    }
 
     const [selectAll, setSelectAll] = useState(false)
 
