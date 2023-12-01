@@ -75,7 +75,7 @@ function NavbarCom3() {
 
                                         <Dropdown.Item className="dd-item" href="/cart" >Cart</Dropdown.Item>
 
-                                        <Dropdown.Item className="dd-item" href="/history" >History</Dropdown.Item>
+                                        <Dropdown.Item className="dd-item" href="#history" >History</Dropdown.Item>
 
                                         <Dropdown.Item className="dd-item" href="/profile" >Profile</Dropdown.Item>
 

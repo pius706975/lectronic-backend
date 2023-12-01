@@ -66,7 +66,7 @@ function Cart() {
         }
     }
 
-    const searchItem = ()=>{
+    const searchItem = async ()=>{
         try {
             api.requests({
                 method: 'GET',

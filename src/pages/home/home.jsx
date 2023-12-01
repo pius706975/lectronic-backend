@@ -13,8 +13,15 @@ import Api from "../../helpers/api"
 import CardHome from "../../components/card/card.home"
 import Aos from "aos"
 import 'aos/dist/aos.css'
+import txt from './json/text.json'
 
 function Home() {
+
+    const sec2 = [
+        {icon: <PiShoppingBag/>, title: txt.sp, text: txt.sp_text},
+        {icon: <FaMoneyBillWave/>, title: txt.mp, text: txt.mp_text},
+        {icon: <BsBox/>, title: txt.rp, text: txt.rp_text}
+    ]
 
     const api = Api()
 
@@ -163,28 +170,17 @@ function Home() {
                 <div>
                     <div className="d-flex">
                         <div style={{maxWidth: "1700px", width: "100%", margin: "50px auto", padding: "10px"}}>
-                            
-                            <div style={{display: "flex", justifyContent: "space-around", flexWrap: "wrap", padding: "30px 0"}}>
-                                <div data-aos='zoom-in-down' data-aos-duration='600' data-aos-offset='100' className="steps" style={{marginBottom: "15px", maxWidth: "250px", border: "solid 1px #0020b2", borderRadius: "10px", textAlign: "justify", padding: "25px"}}>
-                                    <p className="icon" style={{margin: "auto", padding: "10px", backgroundColor: "#f1f1f1", width: "50px", borderRadius: "100%", textAlign: "center"}}><PiShoppingBag/></p>
-                                    <p></p>
-                                    <h5 style={{fontWeight: "bold"}}>Select Products</h5>
-                                    <p style={{fontSize: "15px"}}>Select one or more products that you want and you have 2 choices to buy directly or save products into cart.</p> 
-                                </div>
-
-                                <div data-aos='zoom-in-down' data-aos-duration='600' data-aos-offset='100' className="steps" style={{marginBottom: "15px", maxWidth: "250px", border: "solid 1px #0020b2", borderRadius: "10px", textAlign: "justify", padding: "25px"}}>
-                                    <p className="icon" style={{margin: "auto", padding: "10px", backgroundColor: "#f1f1f1", width: "50px", borderRadius: "100%", textAlign: "center"}}><FaMoneyBillWave/></p>
-                                    <p></p>
-                                    <h5 style={{fontWeight: "bold"}}>Make Payment</h5>
-                                    <p style={{fontSize: "15px"}}>Select payment method after considering what product do you want to get.</p>
-                                </div>
-
-                                <div data-aos='zoom-in-down' data-aos-duration='600' data-aos-offset='100' className="steps" style={{marginBottom: "15px", maxWidth: "250px", border: "solid 1px #0020b2", borderRadius: "10px", textAlign: "justify", padding: "25px"}}>
-                                    <p className="icon" style={{margin: "auto", padding: "10px", backgroundColor: "#f1f1f1", width: "50px", borderRadius: "100%", textAlign: "center"}}><BsBox/></p>
-                                    <p></p>
-                                    <h5 style={{fontWeight: "bold"}}>Receive Products</h5>
-                                    <p style={{fontSize: "15px"}}>The products is in shipping process. Just wait for a few days until the ordered product arrives at your home.</p> 
-                                </div>
+                            <div style={{display: "flex", justifyContent: "space-around", flexWrap: "wrap", padding: "30px 0"}} data-aos='zoom-in-down' data-aos-duration='600' data-aos-offset='100'>
+                                {sec2.map((data)=>{
+                                    return(
+                                        <div className="steps" style={{marginBottom: "15px", maxWidth: "250px", border: "solid 1px #0020b2", borderRadius: "10px", textAlign: "justify", padding: "25px"}}>
+                                            <p className="icon" style={{margin: "auto", padding: "10px", backgroundColor: "#f1f1f1", width: "50px", borderRadius: "100%", textAlign: "center"}}>{data.icon}</p>
+                                            <p></p>
+                                            <h5 style={{fontWeight: "bold"}}>{data.title}</h5>
+                                            <p style={{fontSize: "15px"}}>{data.text}</p> 
+                                        </div>
+                                    )
+                                })}
                             </div>
                         </div>
                     </div>

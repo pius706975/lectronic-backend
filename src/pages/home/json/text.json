@@ -1,0 +1,10 @@
+{
+    "sp": "Select Products",
+    "sp_text": "Select one or more products that you want and you have 2 choices to buy directly or save products into cart.",
+
+    "mp": "Make Payment",
+    "mp_text": "Select payment method after considering what product do you want to get.",
+
+    "rp": "Receive Product",
+    "rp_text": "The products is in shipping process. Just wait for a few days until the ordered product arrives at your home."
+}
