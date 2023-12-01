@@ -55,8 +55,8 @@ function NavbarCom() {
                     <Nav className="mx-auto drop">
                         <Nav.Link className="nav-link" href="/">Home</Nav.Link>
                         <Nav.Link className="nav-link" href="/product">Product</Nav.Link>
-                        <Nav.Link className="nav-link" href="#">Community</Nav.Link>
-                        <Nav.Link className="nav-about" href="#">About</Nav.Link>
+                        <Nav.Link className="nav-link" href="#community">Community</Nav.Link>
+                        <Nav.Link className="nav-about" href="#about">About</Nav.Link>
                     </Nav>
 
                     <Nav>
@@ -78,7 +78,7 @@ function NavbarCom() {
 
                                         <Dropdown.Item className="dd-item" href="/cart" >Cart</Dropdown.Item>
 
-                                        <Dropdown.Item className="dd-item" href="/history" >History</Dropdown.Item>
+                                        <Dropdown.Item className="dd-item" href="#history" >History</Dropdown.Item>
 
                                         <Dropdown.Item className="dd-item" href="/profile" >Profile</Dropdown.Item>
 

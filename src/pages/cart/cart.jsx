@@ -10,17 +10,24 @@ import { RiDeleteBin6Line } from "react-icons/ri"
 import Aos from "aos"
 import 'aos/dist/aos.css'
 import CustomAlert from "../../components/alerts/custom-alert"
+import DangerAlert from "../../components/alerts/danger-alert"
 
 function Cart() {
     const api = Api()
     const {isAuth} = useSelector((state)=>state.users)
     const [cartItem, setCartItem] = useState([])
+    const [showItem, setShowItem] = useState(false)
+
     const [showAlert, setShowAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState('')
+    const [showDangerAlert, setShowDangerAlert] = useState(false)
+    const [dangerMessage, setDangerMessage] = useState('')
     
     const [searchResults, setSearchResults] = useState([])
     const [keyword, setKeyword] = useState('')
     const [query, setQuery] = useState('')
+
+    const [errorMessage, setErrorMessage] = useState('')
 
     const getUser = ()=>{
         api.requests({
@@ -34,30 +41,56 @@ function Cart() {
         })
     }
 
-    const getAllItems = ()=>{
-        api.requests({
-            method: 'GET',
-            url: '/cart'
-        }).then((res)=>{
-            const data = res.data.result
-            setCartItem(data)
-            // console.log(data)
-        }).catch((err)=>{
-            console.log(err)
-        })
+    const getAllItems = async ()=>{
+        try {
+            api.requests({
+                method: 'GET',
+                url: '/cart'
+            }).then((res)=>{
+                const data = res.data.result
+                setCartItem(data)
+                setShowItem(true)
+                // console.log(data)
+            }).catch((error)=>{
+                if (error.response && error.response.data) {
+                    const errorMessage = error.response.data.result[0].message
+                    setErrorMessage(errorMessage)
+                    setShowItem(false)
+                    // console.log(errorMessage)
+                } else {
+                    console.log(`An error occurred: ${error.message}`)
+                }
+            })
+        } catch (error) {
+            console.log(`An error occurred: ${error.message}`)   
+        }
     }
 
-    const searchItem = ()=>{
-        api.requests({
-            method: 'GET',
-            url: `/cart/search?product_name=${keyword}`
-        }).then((res)=>{
-            const data = res.data.result
-            setSearchResults(data)
-            // console.log(data)
-        }).catch((err)=>{
-            console.log(err)
-        })
+    const searchItem = async ()=>{
+        try {
+            api.requests({
+                method: 'GET',
+                url: `/cart/search?product_name=${keyword}`
+            }).then((res)=>{
+                const data = res.data.result
+                setSearchResults(data)
+                // console.log(data)
+            }).catch((error)=>{
+                if (error.response && error.response.data) {
+                    const errorMessage = error.response.data.result[0].message
+                    setShowDangerAlert(true)
+                    setDangerMessage(errorMessage)
+                    setTimeout(() => {
+                        setShowDangerAlert(false)
+                    }, 1500)
+                    // console.log(errorMessage)
+                } else {
+                    console.log(`An error occurred: ${error.message}`)
+                }
+            })
+        } catch (error) {
+            console.log(`An error occurred: ${error.message}`)
+        }
     }
 
     const deleteItem = (id)=>{
@@ -70,28 +103,6 @@ function Cart() {
             setTimeout(() => {
                 setShowAlert(false)
             }, 1000)
-            getAllItems()
-        }).catch((err)=>{
-            console.log(err)
-        })
-    }
-
-    const increaseQTY = (id)=>{
-        api.requests({
-            method: 'PUT',
-            url: `/cart/increase=${id}`
-        }).then((res)=>{
-            getAllItems()
-        }).catch((err)=>{
-            console.log(err)
-        })
-    }
-
-    const decreaseQTY = (id)=>{
-        api.requests({
-            method: 'PUT',
-            url: `/cart/decrease=${id}`
-        }).then((res)=>{
             getAllItems()
         }).catch((err)=>{
             console.log(err)
@@ -124,6 +135,48 @@ function Cart() {
     }, [])
 
     const displayItems = query ? searchResults : cartItem
+
+    const increaseQTY = (id)=>{
+        const getStocks = displayItems.find((data)=>data.cart_id === id)
+
+        if (getStocks.qty < getStocks.product_data.stock) {
+            api.requests({
+                method: 'PUT',
+                url: `/cart/increase=${id}`
+            }).then((res)=>{
+                getAllItems()
+            }).catch((err)=>{
+                console.log(err)
+            })
+        } else {
+            setShowAlert(true)
+            setAlertMessage('You add more than the stocks')
+            setTimeout(() => {
+                setShowAlert(false)
+            }, 1000)
+        }
+    }
+
+    const decreaseQTY = (id)=>{
+        const getStocks = displayItems.find((data)=>data.cart_id === id)
+        
+        if (getStocks.qty - 1 !== 0) {
+            api.requests({
+                method: 'PUT',
+                url: `/cart/decrease=${id}`
+            }).then((res)=>{
+                getAllItems()
+            }).catch((err)=>{
+                console.log(err)
+            })
+        } else {
+            setShowAlert(true)
+            setAlertMessage('Minimum item is 1')
+            setTimeout(() => {
+                setShowAlert(false)
+            }, 1000)
+        }
+    }
 
     const [selectAll, setSelectAll] = useState(false)
 
@@ -219,62 +272,74 @@ function Cart() {
                     </div>
 
                     <div className="items">
-                        <div className="left-item">
-                            <div data-aos='zoom-in-right' data-aos-duration='600' data-aos-offset='100'>
-                                {
-                                    displayItems.map((data, index)=>{
-                                        return(
-                                            <div className="main-item-card" key={index}>
-                                                <div style={{margin: 'auto'}}>
-                                                    <Form.Check style={{fontSize: '20px', fontWeight: 'bolder'}} inline checked={selectAll || data.selected} onChange={()=>handleCheckbox(index)}/>
-                                                </div>
-                                                
-                                                <div className="left-item-card">
-
+                        {showItem ? (
+                            <div className="left-item">
+                                <div data-aos='zoom-in-right' data-aos-duration='600' data-aos-offset='100'>
+                                    {
+                                        displayItems.map((data, index)=>{
+                                            return(
+                                                <div className="main-item-card" key={index}>
                                                     <div style={{margin: 'auto'}}>
-                                                        <Image className="cart-img" src={data.product_data.image}/>
+                                                        <Form.Check style={{fontSize: '20px', fontWeight: 'bolder'}} inline checked={selectAll || data.selected} onChange={()=>handleCheckbox(index)}/>
+                                                    </div>
+                                                    
+                                                    <div className="left-item-card">
+
+                                                        <div style={{margin: 'auto'}}>
+                                                            <Image className="cart-img" src={data.product_data.image}/>
+                                                        </div>
+
+                                                        <div style={{marginTop: 'auto'}}>
+                                                            <p className="text-dark" style={{overflow: 'hidden', fontSize: '15px'}}>{data.product_data.name}</p>
+
+                                                            <p className="text-light" style={{fontSize: '10px', padding: '5px', backgroundColor: '#4f4dc6', width: 'max-content', borderRadius: '10px'}}>{data.product_data.category_name}</p>
+
+                                                            <p style={{fontSize: '15px', color: 'blue', fontWeight: 'bold'}}>{formatCurrency(data.product_data.price)}</p>
+                                                        </div>
                                                     </div>
 
-                                                    <div style={{marginTop: 'auto'}}>
-                                                        <p className="text-dark" style={{overflow: 'hidden', fontSize: '15px'}}>{data.product_data.name}</p>
+                                                    <div className="right-item-card" style={{marginTop: 'auto'}}>
+                                                        <div className="item-delete-btn">
+                                                            <p onClick={()=>deleteItem(data.cart_id)}><RiDeleteBin6Line/></p>
+                                                        </div>
 
-                                                        <p className="text-light" style={{fontSize: '10px', padding: '5px', backgroundColor: '#4f4dc6', width: 'max-content', borderRadius: '10px'}}>{data.product_data.category_name}</p>
+                                                        <CustomAlert
+                                                            show={showAlert}
+                                                            onClose={()=>setShowAlert(false)}
+                                                            message={alertMessage}
+                                                        />
+                                                        
+                                                        <DangerAlert
+                                                            show={showDangerAlert}
+                                                            onClose={()=>setShowDangerAlert(false)}
+                                                            message={dangerMessage}
+                                                        />
 
-                                                        <p style={{fontSize: '15px', color: 'blue', fontWeight: 'bold'}}>{formatCurrency(data.product_data.price)}</p>
-                                                    </div>
-                                                </div>
+                                                        <p>&nbsp;</p>
 
-                                                <div className="right-item-card" style={{marginTop: 'auto'}}>
-                                                    <div className="item-delete-btn">
-                                                        <p onClick={()=>deleteItem(data.cart_id)}><RiDeleteBin6Line/></p>
-                                                    </div>
+                                                        <div>
+                                                            <div className="input-qty">
+                                                                <button type="button" className="input-group-qty"><span style={{color: '#0300ad', fontWeight: 'bolder'}} onClick={()=>decreaseQTY(data.cart_id)}>-</span></button>
 
-                                                    <CustomAlert
-                                                        show={showAlert}
-                                                        onClose={()=>setShowAlert(false)}
-                                                        message={alertMessage}
-                                                    />
+                                                                <div className="form-control text-center" style={{border: 'none'}}>
+                                                                    <span style={{fontWeight: 'bold'}}>{data.qty}</span>
+                                                                </div>
 
-                                                    <p>&nbsp;</p>
-
-                                                    <div>
-                                                        <div className="input-qty">
-                                                            <button type="button" className="input-group-qty"><span style={{color: '#0300ad', fontWeight: 'bolder'}} onClick={()=>decreaseQTY(data.cart_id)}>-</span></button>
-
-                                                            <div className="form-control text-center" style={{border: 'none'}}>
-                                                                <span style={{fontWeight: 'bold'}}>{data.qty}</span>
+                                                                <button type="button" className="input-group-qty"><span style={{color: '#0300ad', fontWeight: 'bolder'}} onClick={()=>increaseQTY(data.cart_id)}>+</span></button>
                                                             </div>
-
-                                                            <button type="button" className="input-group-qty"><span style={{color: '#0300ad', fontWeight: 'bolder'}} onClick={()=>increaseQTY(data.cart_id)}>+</span></button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        )
-                                    })
-                                }
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
-                        </div>
+                        ):(
+                            <div className="error-message">
+                                <p style={{color: 'red'}}>{errorMessage}</p>
+                            </div>
+                        )}
 
                         <div className="box">
                             <div className="row">
@@ -308,6 +373,7 @@ function Cart() {
                             </div>
                         </div>
                     </div>
+
                 </div>
             ) : (
                 <div style={{margin: 'auto', marginTop: '25%', textAlign: 'center'}}>

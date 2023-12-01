@@ -3,23 +3,30 @@ import './product.css'
 import { useParams } from "react-router-dom"
 import Api from "../../helpers/api"
 import NavbarCom3 from "../../components/navbar/navbar3"
-import {BsCart, BsStar} from 'react-icons/bs'
+import {BsCart} from 'react-icons/bs'
+import { TiStarFullOutline } from "react-icons/ti"
 import currency from '../../helpers/format.currency'
 import { Button, Nav, Row, Tab } from "react-bootstrap"
 import Rate from "../../components/rate/rate"
 import Aos from "aos"
 import 'aos/dist/aos.css'
 import CustomAlert from "../../components/alerts/custom-alert"
+import { useSelector } from "react-redux"
+import DangerAlert from "../../components/alerts/danger-alert"
 
 function ProductDetail() {
     
+    const {isAuth} = useSelector((state)=>state.users)
     const [product, setProduct] = useState({})
     const [total, setTotal] = useState(0)
     const params = useParams()
     const api = Api()
     const [qty, setQty] = useState(0)
+
     const [showAlert, setShowAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState('')
+    const [showDangerAlert, setShowDangerAlert] = useState(false)
+    const [dangerMessage, setDangerMessage] = useState('')
 
     const getProduct = ()=>{
         api.requests({
@@ -71,6 +78,16 @@ function ProductDetail() {
         try {
             const productId = params.id
             const status = 'Ready to pay'
+
+            if (!isAuth) {
+                setShowDangerAlert(true)
+                setDangerMessage('Login first to add items to cart.')
+                setTimeout(() => {
+                    setShowDangerAlert(false)
+                }, 1500)
+                return
+            }
+
             if (qty === 0) {
                 setShowAlert(true)
                 setAlertMessage('Minimum item is 1')
@@ -116,19 +133,35 @@ function ProductDetail() {
 
                             <div className="row" style={{padding: '0px 10px 0 10px', fontWeight: 'bold', marginBottom: '10px'}}>
                                 <div className="inc-dec-amount col-6">
-                                    <div className="input-group">
-                                        <button type="button" onClick={handleDecrement} className="input-group-text"><span style={{color: '#6160cc', fontWeight: 'bolder'}}>-</span></button>
+                                    {product.stock > 0 ? (
+                                        <div className="input-group">
+                                            <button type="button" onClick={handleDecrement} className="input-group-text"><span style={{color: '#6160cc', fontWeight: 'bolder'}}>-</span></button>
 
-                                        <div className="form-control text-center" style={{border: 'none'}}>
-                                            <span style={{fontWeight: 'bold'}}>{qty}</span>
+                                            <div className="form-control text-center" style={{border: 'none'}}>
+                                                <span style={{fontWeight: 'bold'}}>{qty}</span>
+                                            </div>
+
+                                            <button type="button" onClick={handleIncrement} className="input-group-text"><span style={{color: '#6160cc', fontWeight: 'bolder'}}>+</span></button>
                                         </div>
+                                    ):(
+                                        <div className="input-group">
+                                            <button type="button" onClick={handleDecrement} className="input-group-text" disabled><span style={{color: 'grey', fontWeight: 'bolder'}}>-</span></button>
 
-                                        <button type="button" onClick={handleIncrement} className="input-group-text"><span style={{color: '#6160cc', fontWeight: 'bolder'}}>+</span></button>
-                                    </div>
+                                            <div className="form-control text-center" style={{border: 'none', color: 'grey'}}>
+                                                <span style={{fontWeight: 'bold'}}>{qty}</span>
+                                            </div>
+
+                                            <button type="button" onClick={handleIncrement} className="input-group-text" disabled><span style={{color: 'grey', fontWeight: 'bolder'}}>+</span></button>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="stock col-6" style={{fontSize: '20px', textAlign: 'right', margin: 'auto'}}>
-                                    <span style={{color: '#777777'}}>Stock</span> {product.stock}
+                                    {product.stock > 0 ? (
+                                        <span style={{color: '#777777'}}>Stock <span style={{color: 'black'}}>{product.stock}</span></span>
+                                    ):(
+                                        <span style={{color: 'red'}}>Out of stock</span>
+                                    )}
                                 </div>
                             </div>
 
@@ -156,6 +189,12 @@ function ProductDetail() {
                                     onClose={()=>setShowAlert(false)}
                                     message={alertMessage}
                                 />
+
+                                <DangerAlert
+                                    show={showDangerAlert}
+                                    onClose={()=>setShowDangerAlert(false)}
+                                    message={dangerMessage}
+                                />
                             </div>
                         </div>
                     </div>
@@ -165,7 +204,7 @@ function ProductDetail() {
                             <h1>{product.name}</h1>
 
                             <p style={{fontSize: '15px', fontWeight: 'bold'}}>
-                                Sold <span style={{color: '#0300ad'}}>{product.sold}</span> | <BsStar style={{color: '#0300ad', fontSize:'13px'}}/> <span style={{color: '#0300ad'}}>{product.rating}</span>
+                                Sold <span style={{color: '#0300ad'}}>{product.sold}</span> | Rating <span style={{color: '#0300ad'}}>{product.rating}<TiStarFullOutline style={{color: '#0300ad'}}/></span>
                             </p>
 
                             <Tab.Container id="left-tabs-example" defaultActiveKey="first">

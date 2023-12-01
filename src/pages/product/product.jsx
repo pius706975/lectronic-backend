@@ -12,16 +12,21 @@ import { BiFilterAlt } from "react-icons/bi"
 import { useNavigate } from "react-router-dom"
 import Aos from "aos"
 import 'aos/dist/aos.css'
+import { useSelector } from "react-redux"
+import DangerAlert from "../../components/alerts/danger-alert"
 
 function Product() {
 
     const navigate = useNavigate()
     const api = Api()
+    const {isAuth} = useSelector((state)=>state.users)
+
+    const [showDangerAlert, setShowDangerAlert] = useState(false)
+    const [dangerMessage, setDangerMessage] = useState('')
 
     const [categories, setCategories] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
     const [selectedCategory, setSelectedCategory] = useState(null)
-
     const [searchResults, setSearchResults] = useState([])
 
     const [keyword, setKeyword] = useState('')
@@ -108,7 +113,16 @@ function Product() {
     }
 
     const toCartPage = ()=>{
-        navigate('/cart')
+        if (!isAuth) {
+            setShowDangerAlert(true)
+            setDangerMessage(`Login first to see your cart.`)
+            setTimeout(() => {
+                setShowDangerAlert(false)
+            }, 1500)
+            return
+        } else {
+            navigate('/cart')
+        }
     }
 
     useEffect(()=>{
@@ -158,6 +172,12 @@ function Product() {
                     <Button className="additional-product-btn">
                         <BiFilterAlt/>
                     </Button>
+
+                    <DangerAlert
+                        show={showDangerAlert}
+                        onClose={()=>setShowDangerAlert(false)}
+                        message={dangerMessage}
+                    />
                 </div>
             </div>
 
