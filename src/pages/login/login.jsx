@@ -68,7 +68,7 @@ function Login() {
     }
 
     const handleHistory = ()=>{
-        navigate(-1)
+        navigate('/')
     }
 
     useEffect(()=>{
@@ -135,7 +135,7 @@ function Login() {
                     </div>
 
                     <div className="box">
-                        <div data-aos='fade-left' data-aos-duration='600' data-aos-offset='100' className="row">
+                        <div data-aos='zoom-in-left' data-aos-duration='600' data-aos-offset='100' className="row">
                             {!isMobile && (
                                 <div className="right-bg">
                                     <Image src={image} className="right-img-log"/>
