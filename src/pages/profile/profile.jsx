@@ -82,7 +82,7 @@ function UserProfile() {
             setData4(data.phone_number)
 
             const dob = new Date(data.date_of_birth)
-            dob.setDate(dob.getDate()+1)
+            dob.setDate(dob.getDate())
             const formattedDate = dob.toISOString().split('T')[0]
 
             setData5(formattedDate)
