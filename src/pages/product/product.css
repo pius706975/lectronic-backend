@@ -194,6 +194,7 @@
 
 @media screen and (max-width: 390px) {
     .product-category-btn {
-        visibility: hidden;
+        /* visibility: hidden; */
+        justify-content: space-around;
     }
 }
