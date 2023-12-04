@@ -32,7 +32,7 @@ function Home() {
     const [keyword, setKeyword] = useState('')
     const [query, setQuery] = useState('')
 
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(4)
     const [limit, setLimit] = useState(4)
     const [pages, setPages] = useState(0)
     const [rows, setRows] = useState(0)
