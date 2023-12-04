@@ -6,9 +6,9 @@ import { Button, Dropdown, Image, Nav, Navbar } from "react-bootstrap"
 import Api from "../../helpers/api"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import backLogo from '../../images/back.png'
 import toggleImage from '../../images/Logo.png'
 import { logout } from "../../store/reducer/user"
+import { FaHome } from "react-icons/fa"
 
 function NavbarCom2() {
 
@@ -32,7 +32,7 @@ function NavbarCom2() {
     }
 
     const handleHistory = ()=>{
-        navigate(-1)
+        navigate('/')
     }
 
     useEffect(()=>{
@@ -48,8 +48,8 @@ function NavbarCom2() {
             <Navbar expand="lg" className="navbar" style={{maxWidth: '1350px', margin: 'auto'}}>
                 
                 <Navbar.Brand as={Link} to="/" >
-                    <button className="log-arrow-back" onClick={handleHistory}>
-                        <Image style={{width: '40px'}} src={backLogo}/>
+                    <button className="log-arrow-back" onClick={handleHistory} style={{padding: '10px'}}>
+                        <FaHome/>
                     </button>
                 </Navbar.Brand>
 
